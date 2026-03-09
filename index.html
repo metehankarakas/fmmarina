@@ -149,6 +149,53 @@
       font-weight: 700;
     }
 
+    .insta-wrap {
+      background: linear-gradient(180deg, #0f2f4a, #0b243a);
+      border: 1px solid rgba(126, 200, 255, .18);
+      border-radius: 16px;
+      padding: 26px;
+    }
+    .insta-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .insta-top p { opacity: .88; }
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .insta-item {
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      min-height: 180px;
+      background: #0d1d2f;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .insta-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      aspect-ratio: 1 / 1;
+      transition: transform .25s ease;
+    }
+    .insta-item:hover img { transform: scale(1.03); }
+    .insta-message {
+      width: 100%;
+      text-align: center;
+      padding: 16px;
+      color: rgba(255,255,255,.88);
+      background: rgba(255,255,255,.04);
+      border-radius: 10px;
+      border: 1px dashed rgba(255,255,255,.18);
+    }
+
     .cta {
       background: linear-gradient(180deg, #0f2f4a, #081726);
       text-align: center;
@@ -280,6 +327,19 @@
     </div>
   </section>
 
+  <section id="instagram">
+    <h2 data-i18n="instaTitle">Instagram Galerisi</h2>
+    <div class="insta-wrap">
+      <div class="insta-top">
+        <p data-i18n="instaSubtitle">Son paylaşımlar Instagram hesabınızdan otomatik çekilir.</p>
+        <a class="btn secondary" id="instaProfileBtn" href="https://instagram.com/fmmarina" target="_blank" rel="noopener" data-i18n="instaProfileBtn">Profili Aç</a>
+      </div>
+      <div id="instaGrid" class="insta-grid" aria-live="polite">
+        <div class="insta-message" data-i18n="instaLoading">Instagram paylaşımları yükleniyor...</div>
+      </div>
+    </div>
+  </section>
+
   <section class="cta">
     <h2 data-i18n="cta">Teklif Al</h2>
     <p data-i18n="ctatext">WhatsApp üzerinden hızlıca iletişime geçin</p>
@@ -314,6 +374,11 @@
         before: 'Önce',
         after: 'Sonra',
         reviews: 'Google Yorumları',
+        instaTitle: 'Instagram Galerisi',
+        instaSubtitle: 'Son paylaşımlar Instagram hesabınızdan otomatik çekilir.',
+        instaProfileBtn: 'Profili Aç',
+        instaLoading: 'Instagram paylaşımları yükleniyor...',
+        instaError: 'Instagram içeriği şu an alınamadı. Profilden tüm paylaşımları görebilirsiniz.',
         r1: '"Teknemiz ilk günkü gibi oldu."',
         r2: '"Hızlı iletişim, mükemmel işçilik."',
         r3: '"Profesyonel ve güvenilir."',
@@ -341,6 +406,11 @@
         before: 'Before',
         after: 'After',
         reviews: 'Google Reviews',
+        instaTitle: 'Instagram Gallery',
+        instaSubtitle: 'Latest posts are pulled automatically from your Instagram account.',
+        instaProfileBtn: 'Open Profile',
+        instaLoading: 'Loading Instagram posts...',
+        instaError: 'Instagram content is unavailable right now. You can view all posts on the profile.',
         r1: '"Our boat looked brand new again."',
         r2: '"Fast communication, excellent workmanship."',
         r3: '"Professional and trustworthy."',
@@ -368,6 +438,11 @@
         before: 'Vorher',
         after: 'Nachher',
         reviews: 'Google Bewertungen',
+        instaTitle: 'Instagram Galerie',
+        instaSubtitle: 'Die neuesten Beiträge werden automatisch aus Ihrem Instagram-Konto geladen.',
+        instaProfileBtn: 'Profil öffnen',
+        instaLoading: 'Instagram-Beiträge werden geladen...',
+        instaError: 'Instagram-Inhalte sind derzeit nicht verfügbar. Alle Beiträge finden Sie im Profil.',
         r1: '"Unser Boot war wieder wie neu."',
         r2: '"Schnelle Kommunikation, hervorragende Arbeit."',
         r3: '"Professionell und zuverlässig."',
@@ -395,6 +470,11 @@
         before: 'До',
         after: 'После',
         reviews: 'Отзывы Google',
+        instaTitle: 'Галерея Instagram',
+        instaSubtitle: 'Последние публикации автоматически загружаются из вашего Instagram-аккаунта.',
+        instaProfileBtn: 'Открыть профиль',
+        instaLoading: 'Загружаются публикации Instagram...',
+        instaError: 'Сейчас не удалось загрузить Instagram. Все публикации доступны в профиле.',
         r1: '"Наша лодка снова как новая."',
         r2: '"Быстрая связь и отличное качество."',
         r3: '"Профессионально и надежно."',
@@ -423,6 +503,8 @@
         const key = el.getAttribute('data-i18n');
         if (data[key]) el.textContent = data[key];
       });
+
+      loadInstagramPosts();
     }
 
     function openServiceWA(service) {
@@ -461,6 +543,49 @@
       const msg = encodeURIComponent(i18n[currentLang].wa);
       window.open('https://wa.me/905388834648?text=' + msg, '_blank');
     }
+
+    // Instagram Graph API ayarları
+    // 1) INSTAGRAM_USER_ID: Business/Creator Instagram kullanıcı ID
+    // 2) INSTAGRAM_ACCESS_TOKEN: Long-lived access token
+    // Bu iki alan girildiğinde galeri otomatik güncellenir.
+    const INSTAGRAM_USER_ID = '';
+    const INSTAGRAM_ACCESS_TOKEN = '';
+    const INSTAGRAM_PROFILE_URL = 'https://instagram.com/fmmarina';
+
+    async function loadInstagramPosts() {
+      const grid = document.getElementById('instaGrid');
+      const profileBtn = document.getElementById('instaProfileBtn');
+      profileBtn.href = INSTAGRAM_PROFILE_URL;
+
+      if (!INSTAGRAM_USER_ID || !INSTAGRAM_ACCESS_TOKEN) {
+        grid.innerHTML = `<div class="insta-message">${i18n[currentLang].instaError}</div>`;
+        return;
+      }
+
+      const endpoint = `https://graph.instagram.com/${INSTAGRAM_USER_ID}/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url&limit=8&access_token=${INSTAGRAM_ACCESS_TOKEN}`;
+
+      try {
+        const res = await fetch(endpoint);
+        if (!res.ok) throw new Error('Instagram API response failed');
+        const json = await res.json();
+        const items = (json.data || []).filter((item) => item.media_type === 'IMAGE' || item.media_type === 'CAROUSEL_ALBUM');
+
+        if (!items.length) {
+          grid.innerHTML = `<div class="insta-message">${i18n[currentLang].instaError}</div>`;
+          return;
+        }
+
+        grid.innerHTML = items.map((item) => {
+          const src = item.media_type === 'CAROUSEL_ALBUM' ? (item.thumbnail_url || item.media_url) : item.media_url;
+          const alt = (item.caption || 'Instagram post').replace(/"/g, '&quot;');
+          return `<a class="insta-item" href="${item.permalink}" target="_blank" rel="noopener"><img src="${src}" alt="${alt}" loading="lazy"></a>`;
+        }).join('');
+      } catch (error) {
+        grid.innerHTML = `<div class="insta-message">${i18n[currentLang].instaError}</div>`;
+      }
+    }
+
+    loadInstagramPosts();
   </script>
 </body>
 </html>
