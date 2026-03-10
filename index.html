@@ -7,6 +7,29 @@
   <meta name="description" content="FM Marina – tekne bakım, onarım, boya, zımpara ve cila hizmetleri." />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #061422;
+      --bg-soft: #0b2742;
+      --card: #102f4b;
+      --card-soft: #18486f;
+      --accent: #87d7ff;
+      --accent-2: #56b4ef;
+      --text: #f3fbff;
+      --muted: #b9d8ef;
+      --wa: #25D366;
+      --border: rgba(136, 208, 255, 0.25);
+      --shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #133b60 0%, var(--bg) 34%);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
     :root {
       --bg: #061220;
       --bg-soft: #0a1f36;
@@ -38,6 +61,22 @@
       display: none;
       justify-content: center;
       align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: rgba(6, 17, 29, 0.9);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(7px);
+      z-index: 999;
+    }
+
+    .sticky img { width: 42px; height: 42px; object-fit: contain; }
+    .sticky span { color: var(--muted); font-size: 13px; }
+
+    header {
+      min-height: 90vh;
+      position: relative;
+      padding: 24px 20px 74px;
+      background: linear-gradient(rgba(6, 20, 34, .77), rgba(6, 20, 34, .94)), url("bg.png") center/cover no-repeat;
       gap: 12px;
       background: rgba(5, 17, 30, 0.92);
       backdrop-filter: blur(8px);
