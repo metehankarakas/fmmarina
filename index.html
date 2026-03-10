@@ -517,7 +517,9 @@ async function fetchInstagramFeed() {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), instagramConfig.requestTimeoutMs);
     try {
-      const response = await fetch(source.url, {
+
+      const response = await fetch(source, {
+    main
         headers: { Accept: 'application/json' },
         signal: controller.signal,
         cache: 'no-store'
