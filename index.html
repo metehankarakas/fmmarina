@@ -178,7 +178,8 @@ let currentLang = 'tr';
 const instagramConfig = {
   fallbackPath: './instagram-feed.json',
   endpoint: window.FM_INSTAGRAM_ENDPOINT || '/api/instagram-media',
-  maxItems: 6
+  maxItems: 6,
+  requestTimeoutMs: 6000
 };
 
 const content = {
@@ -406,6 +407,16 @@ function normalizeInstagramData(payload) {
   const rows = Array.isArray(payload) ? payload : payload.data;
   if (!Array.isArray(rows)) return [];
 
+  const isHttpUrl = (value) => {
+    if (!value || typeof value !== 'string') return false;
+    try {
+      const url = new URL(value, window.location.origin);
+      return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (error) {
+      return false;
+    }
+  };
+
   return rows
     .map((item) => ({
       media_type: item.media_type || 'IMAGE',
@@ -414,7 +425,11 @@ function normalizeInstagramData(payload) {
       caption: item.caption || '',
       permalink: item.permalink || '#'
     }))
-    .filter((item) => item.thumbnail_url || item.media_url)
+    .filter((item) => isHttpUrl(item.thumbnail_url || item.media_url))
+    .map((item) => ({
+      ...item,
+      permalink: isHttpUrl(item.permalink) ? item.permalink : 'https://www.instagram.com/fmmarina/'
+    }))
     .slice(0, instagramConfig.maxItems);
 }
 
@@ -428,14 +443,40 @@ function renderInstagram(items) {
     card.className = 'insta-card';
     const thumb = item.media_type === 'VIDEO' ? item.thumbnail_url : item.media_url;
 
-    card.innerHTML = `
-      <span class="insta-type">${item.media_type}</span>
-      <img src="${thumb}" alt="Instagram post" loading="lazy">
-      <div class="meta">
-        <p>${item.caption || 'FM Marina'}</p>
-        <a class="insta-link" href="${item.permalink}" target="_blank" rel="noopener">${content[currentLang].instaView}</a>
-      </div>
-    `;
+    const typeBadge = document.createElement('span');
+    typeBadge.className = 'insta-type';
+    typeBadge.textContent = item.media_type;
+
+    const image = document.createElement('img');
+    image.src = thumb;
+    image.alt = 'Instagram post';
+    image.loading = 'lazy';
+    image.referrerPolicy = 'no-referrer';
+    image.addEventListener('error', () => {
+      image.src = 'logo.png';
+      image.style.objectFit = 'contain';
+      image.style.padding = '18px';
+      image.style.background = '#0b1a29';
+    });
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+
+    const caption = document.createElement('p');
+    caption.textContent = item.caption || 'FM Marina';
+
+    const link = document.createElement('a');
+    link.className = 'insta-link';
+    link.href = item.permalink;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.textContent = content[currentLang].instaView;
+
+    meta.appendChild(caption);
+    meta.appendChild(link);
+    card.appendChild(typeBadge);
+    card.appendChild(image);
+    card.appendChild(meta);
     grid.appendChild(card);
   });
 }
@@ -444,14 +485,22 @@ async function fetchInstagramFeed() {
   const sources = [instagramConfig.endpoint, instagramConfig.fallbackPath];
 
   for (const source of sources) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), instagramConfig.requestTimeoutMs);
     try {
-      const response = await fetch(source, { headers: { Accept: 'application/json' } });
+      const response = await fetch(source, {
+        headers: { Accept: 'application/json' },
+        signal: controller.signal,
+        cache: 'no-store'
+      });
       if (!response.ok) continue;
       const data = await response.json();
       const normalized = normalizeInstagramData(data);
       if (normalized.length) return normalized;
     } catch (error) {
       // next source
+    } finally {
+      clearTimeout(timeoutId);
     }
   }
   return [];
