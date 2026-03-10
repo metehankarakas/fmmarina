@@ -175,9 +175,13 @@ window.addEventListener('scroll', () => {
 });
 
 let currentLang = 'tr';
+// Optional for automatic Instagram pull: set window.FM_INSTAGRAM_ACCESS_TOKEN and (optionally) window.FM_INSTAGRAM_USER_ID before this script runs.
 const instagramConfig = {
   fallbackPath: './instagram-feed.json',
   endpoint: window.FM_INSTAGRAM_ENDPOINT || '/api/instagram-media',
+  graphApiVersion: window.FM_INSTAGRAM_GRAPH_VERSION || 'v23.0',
+  userId: window.FM_INSTAGRAM_USER_ID || '',
+  accessToken: window.FM_INSTAGRAM_ACCESS_TOKEN || '',
   maxItems: 6,
   requestTimeoutMs: 6000
 };
@@ -403,6 +407,31 @@ function setInstaStatus(state) {
   status.textContent = labels[state] || '';
 }
 
+function getGraphApiSource() {
+  if (!instagramConfig.accessToken) return null;
+
+  const baseUrl = `https://graph.instagram.com/${instagramConfig.graphApiVersion}`;
+  const userPath = instagramConfig.userId ? `${instagramConfig.userId}/media` : 'me/media';
+  const url = new URL(`${baseUrl}/${userPath}`);
+  url.searchParams.set('fields', 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp');
+  url.searchParams.set('limit', String(instagramConfig.maxItems));
+  url.searchParams.set('access_token', instagramConfig.accessToken);
+
+  return {
+    type: 'graph',
+    url: url.toString()
+  };
+}
+
+function getInstagramSources() {
+  const sources = [];
+  const graphSource = getGraphApiSource();
+  if (graphSource) sources.push(graphSource);
+  if (instagramConfig.endpoint) sources.push({ type: 'endpoint', url: instagramConfig.endpoint });
+  if (instagramConfig.fallbackPath) sources.push({ type: 'fallback', url: instagramConfig.fallbackPath });
+  return sources;
+}
+
 function normalizeInstagramData(payload) {
   const rows = Array.isArray(payload) ? payload : payload.data;
   if (!Array.isArray(rows)) return [];
@@ -482,13 +511,15 @@ function renderInstagram(items) {
 }
 
 async function fetchInstagramFeed() {
-  const sources = [instagramConfig.endpoint, instagramConfig.fallbackPath];
+  const sources = getInstagramSources();
 
   for (const source of sources) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), instagramConfig.requestTimeoutMs);
     try {
+
       const response = await fetch(source, {
+    main
         headers: { Accept: 'application/json' },
         signal: controller.signal,
         cache: 'no-store'
