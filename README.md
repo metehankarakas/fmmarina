@@ -32,3 +32,34 @@ npm start
   - Yanıt formatı: `{ data: [...] }`
 
 > Not: Token yoksa endpoint 502 döner ve sayfada kullanıcıya hata durumu gösterilir.
+
+
+## GitHub'a yüklerken hata alırsanız
+
+En yaygın sebep: `.env` dosyasındaki gerçek `IG_ACCESS_TOKEN` değerinin yanlışlıkla commit edilmesi.
+GitHub secret scanning bunu bloklayabilir.
+
+Bu repo artık `.env*` dosyalarını `.gitignore` ile dışarıda bırakır (`.env.example` hariç).
+
+### Güvenli akış
+
+1. Sadece örnek dosyayı kopyalayın:
+
+```bash
+cp .env.example .env
+```
+
+2. Gerçek token'ı sadece local `.env` içinde tutun (commit etmeyin).
+
+3. Eğer daha önce token commit ettiyseniz:
+   - dosyadan silmek yetmez, git geçmişinden de temizlemek gerekir
+   - token'ı Meta tarafında mutlaka yenileyin (revoke/rotate)
+
+### Hızlı kontrol
+
+```bash
+git status
+git check-ignore -v .env
+```
+
+`.env` dosyası ignore ediliyorsa GitHub'a push sırasında secret kaynaklı hata alma olasılığı ciddi düşer.

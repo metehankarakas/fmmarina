@@ -2,6 +2,19 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+const ENV_PATH = path.join(process.cwd(), '.env');
+if (fs.existsSync(ENV_PATH)) {
+  const lines = fs.readFileSync(ENV_PATH, 'utf8').split(/\r?\n/);
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#') || !trimmed.includes('=')) continue;
+    const idx = trimmed.indexOf('=');
+    const key = trimmed.slice(0, idx).trim();
+    const value = trimmed.slice(idx + 1).trim();
+    if (key && !process.env[key]) process.env[key] = value;
+  }
+}
+
 const PORT = Number(process.env.PORT || 4173);
 const HOST = '0.0.0.0';
 const IG_ACCESS_TOKEN = process.env.IG_ACCESS_TOKEN;
