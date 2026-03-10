@@ -7,190 +7,136 @@
   <meta name="description" content="FM Marina – tekne bakım, onarım, boya, zımpara ve cila hizmetleri." />
 
   <style>
-  /* RESET */
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Segoe UI",Arial,sans-serif;background:#0a1a2a;color:#fff;line-height:1.6}
+  :root{
+    --bg:#0a1a2a;
+    --bg-soft:#102a44;
+    --card:#132f4c;
+    --accent:#7ec8ff;
+    --text:#fff;
+    --muted:#d6e7f7;
+    --wa:#25D366;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
   a{text-decoration:none;color:inherit}
 
-  /* HEADER */
-  header{position:relative;padding:120px 20px 90px;text-align:center;background:linear-gradient(180deg,#081726,#0f2f4a)}
-  header img{max-width:140px;margin-bottom:25px}
-
-  .hero {
-  height: 100vh;
-  background: url("images/marina.jpg") center/cover no-repeat;
-  position: relative;
-}
-
-.hero-overlay {
-  background: rgba(0,0,0,0.55);
-  color: white;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-.hero h1 {
-  font-size: 48px;
-  margin-bottom: 10px;
-}
-
-.hero p {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 14px 28px;
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: 6px;
-}
-
-.btn.primary {
-  background: #25D366;
-  color: white;
-}
-
-.btn.secondary {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-}
-
-  /* LANGUAGE SWITCH */
-  .lang-switch{position:absolute;top:20px;right:20px;display:flex;gap:8px;z-index:10}
-  .lang-switch button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 12px;border-radius:20px;font-size:13px;cursor:pointer;transition:.3s}
-  .lang-switch button.active,.lang-switch button:hover{background:#7ec8ff;color:#081726;border-color:#7ec8ff}
-
-  /* STICKY */
   .sticky{position:fixed;top:0;left:0;width:100%;background:rgba(8,23,38,.95);padding:10px;display:none;justify-content:center;z-index:999}
   .sticky img{max-width:60px}
 
-  /* SECTIONS */
+  header{position:relative;padding:120px 20px 100px;text-align:center;background:linear-gradient(rgba(8,23,38,.72),rgba(8,23,38,.86)),url("https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat}
+  header img{max-width:140px;margin-bottom:22px}
+  header h1{font-size:54px;letter-spacing:1.2px}
+  header p{margin-top:10px;font-size:22px;color:var(--muted)}
+  header em{display:block;margin-top:8px;opacity:.9}
+
+  .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+  .btn{padding:12px 24px;border-radius:999px;font-weight:600;transition:.25s}
+  .btn.primary{background:var(--wa);color:#fff}
+  .btn.secondary{border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.08)}
+  .btn:hover{transform:translateY(-2px)}
+
+  .lang-switch{position:absolute;top:20px;right:20px;display:flex;gap:8px;z-index:10}
+  .lang-switch button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 12px;border-radius:20px;font-size:13px;cursor:pointer;transition:.3s}
+  .lang-switch button.active,.lang-switch button:hover{background:var(--accent);color:#081726;border-color:var(--accent)}
+
   section{max-width:1150px;margin:auto;padding:80px 20px}
-  h2{color:#7ec8ff;margin-bottom:25px;text-align:center}
+  h2{color:var(--accent);margin-bottom:25px;text-align:center}
 
-/* SERVICES */
-.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:25px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+  .stat{background:linear-gradient(180deg,#163d63,#102f4d);padding:18px;border-radius:12px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+  .stat strong{display:block;font-size:28px;color:#fff}
+  .stat span{font-size:14px;opacity:.9}
 
+  .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:25px}
+  .services-premium .card{position:relative;background:linear-gradient(180deg,#163d63,#102f4d);padding:30px 25px;border-radius:18px;box-shadow:0 15px 40px rgba(0,0,0,.45);transition:.35s ease;overflow:hidden;cursor:pointer}
+  .services-premium .card::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(126,200,255,.25),transparent);opacity:0;transition:.4s}
+  .services-premium .card:hover::before{opacity:1}
+  .services-premium .card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 25px 60px rgba(0,0,0,.6)}
+  .services-premium .card span{display:block;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:6px}
+  .services-premium .card strong{display:block;font-size:20px;margin-bottom:8px}
+  .services-premium .card .svc-desc{font-size:14px;opacity:.9;line-height:1.4}
+  .card{background:var(--card);padding:25px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 
-/* PREMIUM SERVICES */
-.services-premium .card{
-position:relative;
-background:linear-gradient(180deg,#163d63,#102f4d);
-padding:30px 25px;
-border-radius:18px;
-box-shadow:0 15px 40px rgba(0,0,0,.45);
-transition:.35s ease;
-overflow:hidden;
-}
-
-
-.services-premium .card::before{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(120deg,transparent,rgba(126,200,255,.25),transparent);
-opacity:0;
-transition:.4s;
-}
-
-
-.services-premium .card:hover::before{opacity:1}
-
-
-.services-premium .card:hover{
-transform:translateY(-8px) scale(1.02);
-box-shadow:0 25px 60px rgba(0,0,0,.6);
-}
-
-
-.services-premium .card span{
-display:block;
-font-size:13px;
-text-transform:uppercase;
-letter-spacing:1px;
-color:#7ec8ff;
-margin-bottom:6px;
-}
-.services-premium .card strong{display:block;font-size:20px;margin-bottom:8px}
-.services-premium .card .svc-desc{font-size:14px;opacity:.9;line-height:1.4}
-.card{background:#132f4c;padding:25px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-
-  /* GALLERY */
   .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-  .gallery div{height:170px;background:#102a44;border-radius:12px;display:flex;align-items:center;justify-content:center;opacity:.7}
+  .gallery-item{height:180px;border-radius:12px;display:flex;align-items:flex-end;padding:16px;font-weight:600;background-size:cover;background-position:center}
+  .before{background-image:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.68)),url("https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80")}
+  .after{background-image:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.68)),url("https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=900&q=80")}
 
-  /* CTA */
   .cta{background:linear-gradient(180deg,#0f2f4a,#081726);text-align:center;padding:100px 20px}
   .cta h2{font-size:34px;margin-bottom:10px}
   .cta p{font-size:18px;opacity:.9}
-  .cta a{display:inline-block;margin-top:30px;padding:16px 42px;background:linear-gradient(135deg,#7ec8ff,#5aaedf);color:#081726;font-weight:600;border-radius:40px;box-shadow:0 15px 40px rgba(0,0,0,.35);transition:.3s}
+  .cta a{display:inline-block;margin-top:30px;padding:16px 42px;background:linear-gradient(135deg,var(--accent),#5aaedf);color:#081726;font-weight:600;border-radius:40px;box-shadow:0 15px 40px rgba(0,0,0,.35);transition:.3s}
   .cta a:hover{transform:translateY(-3px);box-shadow:0 25px 55px rgba(0,0,0,.45)}
 
-  /* FOOTER */
   footer{text-align:center;background:#07111d;padding:50px 20px;font-size:14px;opacity:.85}
   footer img{max-width:100px;margin-bottom:15px}
 
-  /* MOBILE */
-  @media(max-width:600px){
-    header{padding:100px 15px 70px}
+  .whatsapp-float{position:fixed;bottom:25px;right:25px;background:var(--wa);color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 10px 30px rgba(0,0,0,.35);z-index:999;animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.6)}70%{box-shadow:0 0 0 15px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+
+  @media(max-width:700px){
+    header{padding:95px 15px 75px}
+    header h1{font-size:40px}
+    header p{font-size:18px}
     .cta h2{font-size:28px}
   }
   </style>
 </head>
 <body>
 
-<div class="sticky" id="sticky"><img src="logo.png" alt="FM Marina"></div>
+<div class="sticky" id="sticky"><img src="logo.png" alt="FM Marina" loading="lazy"></div>
 
 <header>
   <div class="lang-switch">
-    <button onclick="setLang('tr')" class="active">TR</button>
-    <button onclick="setLang('en')">EN</button>
-    <button onclick="setLang('de')">DE</button>
-    <button onclick="setLang('ru')">RU</button>
+    <button data-lang="tr" class="active">TR</button>
+    <button data-lang="en">EN</button>
+    <button data-lang="de">DE</button>
+    <button data-lang="ru">RU</button>
   </div>
   <img src="logo.png" alt="FM Marina Logo">
   <h1 id="title">FM MARINA</h1>
   <p id="subtitle">Premium Tekne Bakım • Onarım • Boya • Cila</p>
   <em id="slogan">Tekneniz emin ellerde.</em>
+  <div class="hero-actions">
+    <a class="btn primary" href="#" onclick="openWhatsApp()" id="heroBtnPrimary">WhatsApp’tan Yaz</a>
+    <a class="btn secondary" href="#services" id="heroBtnSecondary">Hizmetleri Keşfet</a>
+  </div>
 </header>
+
 <section>
+  <h2 id="statsTitle">Neden FM Marina?</h2>
+  <div class="stats">
+    <div class="stat"><strong>10+</strong><span id="stat1">Yıllık sektör deneyimi</span></div>
+    <div class="stat"><strong>250+</strong><span id="stat2">Tamamlanan tekne projesi</span></div>
+    <div class="stat"><strong>24/7</strong><span id="stat3">Hızlı iletişim desteği</span></div>
+  </div>
+</section>
+
+<section id="services">
 <h2 id="servicesTitle">Hizmetlerimiz</h2>
 <div class="services services-premium">
-<div class="card" id="s1" onclick="openServiceWA('maintenance')"><span>🛠️ Service</span><strong id="s1">Tekne Bakım & Onarım</strong><p class="svc-desc" id="s1d">Güvenli, uzun ömürlü ve marina standartlarında bakım.</p></div>
-<div class="card" id="s2" onclick="openServiceWA('paint')"><span>🎨 Service</span><strong id="s2">Boya Uygulamaları</strong><p class="svc-desc" id="s2d">Profesyonel boya, estetik ve dayanıklılık.</p></div>
-<div class="card" id="s3" onclick="openServiceWA('sanding')"><span>🧽 Service</span><strong id="s3">Zımpara & Yüzey Hazırlığı</strong><p class="svc-desc" id="s3d">Mükemmel sonuç için kusursuz hazırlık.</p></div>
-<div class="card" id="s4" onclick="openServiceWA('polish')"><span>✨ Service</span><strong id="s4">Cila & Polish</strong><p class="svc-desc" id="s4d">Parlaklık, koruma ve ilk gün görünümü.</p></div>
+<div class="card" onclick="openServiceWA('maintenance')"><span>🛠️ Service</span><strong id="service1">Tekne Bakım & Onarım</strong><p class="svc-desc" id="service1d">Güvenli, uzun ömürlü ve marina standartlarında bakım.</p></div>
+<div class="card" onclick="openServiceWA('paint')"><span>🎨 Service</span><strong id="service2">Boya Uygulamaları</strong><p class="svc-desc" id="service2d">Profesyonel boya, estetik ve dayanıklılık.</p></div>
+<div class="card" onclick="openServiceWA('sanding')"><span>🧽 Service</span><strong id="service3">Zımpara & Yüzey Hazırlığı</strong><p class="svc-desc" id="service3d">Mükemmel sonuç için kusursuz hazırlık.</p></div>
+<div class="card" onclick="openServiceWA('polish')"><span>✨ Service</span><strong id="service4">Cila & Polish</strong><p class="svc-desc" id="service4d">Parlaklık, koruma ve ilk gün görünümü.</p></div>
 </div>
 </section>
 
-
 <section>
-  <h2>Önce / Sonra</h2>
+  <h2 id="beforeAfterTitle">Önce / Sonra</h2>
   <div class="gallery">
-    <div>Önce</div>
-    <div>Sonra</div>
+    <div class="gallery-item before" id="beforeLabel">Önce</div>
+    <div class="gallery-item after" id="afterLabel">Sonra</div>
   </div>
 </section>
 
 <section>
-  <h2>Google Yorumları</h2>
+  <h2 id="reviewsTitle">Google Yorumları</h2>
   <div class="services">
-    <div class="card">★★★★★<br>"Teknemiz ilk günkü gibi oldu."</div>
-    <div class="card">★★★★★<br>"Hızlı iletişim, mükemmel işçilik."</div>
-    <div class="card">★★★★★<br>"Profesyonel ve güvenilir."</div>
+    <div class="card" id="review1">★★★★★<br>"Teknemiz ilk günkü gibi oldu."</div>
+    <div class="card" id="review2">★★★★★<br>"Hızlı iletişim, mükemmel işçilik."</div>
+    <div class="card" id="review3">★★★★★<br>"Profesyonel ve güvenilir."</div>
   </div>
 </section>
 
@@ -201,137 +147,191 @@ margin-bottom:6px;
 </section>
 
 <footer>
-  <img src="logo.png" alt="FM Marina">
-  <p>© 2026 FM Marina</p>
+  <img src="logo.png" alt="FM Marina" loading="lazy">
+  <p id="footerText">© 2026 FM Marina</p>
 </footer>
 
 <script>
-/* STICKY LOGO */
 window.addEventListener('scroll', () => {
-  document.getElementById('sticky').style.display =
-    window.scrollY > 200 ? 'flex' : 'none';
+  document.getElementById('sticky').style.display = window.scrollY > 200 ? 'flex' : 'none';
 });
 
-/* GLOBAL LANG */
 let currentLang = 'tr';
 
-/* LANGUAGE SYSTEM */
+const content = {
+  tr: {
+    subtitle: 'Premium Tekne Bakım • Onarım • Boya • Cila',
+    slogan: 'Tekneniz emin ellerde.',
+    heroBtnPrimary: 'WhatsApp’tan Yaz',
+    heroBtnSecondary: 'Hizmetleri Keşfet',
+    statsTitle: 'Neden FM Marina?',
+    stat1: 'Yıllık sektör deneyimi',
+    stat2: 'Tamamlanan tekne projesi',
+    stat3: 'Hızlı iletişim desteği',
+    servicesTitle: 'Hizmetlerimiz',
+    service1: 'Tekne Bakım & Onarım',
+    service2: 'Boya Uygulamaları',
+    service3: 'Zımpara & Yüzey Hazırlığı',
+    service4: 'Cila & Polish',
+    service1d: 'Güvenli, uzun ömürlü ve marina standartlarında bakım.',
+    service2d: 'Profesyonel boya, estetik ve dayanıklılık.',
+    service3d: 'Mükemmel sonuç için kusursuz hazırlık.',
+    service4d: 'Parlaklık, koruma ve ilk gün görünümü.',
+    beforeAfterTitle: 'Önce / Sonra',
+    beforeLabel: 'Önce',
+    afterLabel: 'Sonra',
+    reviewsTitle: 'Google Yorumları',
+    review1: '★★★★★<br>"Teknemiz ilk günkü gibi oldu."',
+    review2: '★★★★★<br>"Hızlı iletişim, mükemmel işçilik."',
+    review3: '★★★★★<br>"Profesyonel ve güvenilir."',
+    ctaTitle: 'Teklif Al',
+    ctaText: 'WhatsApp üzerinden hızlıca iletişime geçin',
+    ctaBtn: 'WhatsApp’tan Yaz'
+  },
+  en: {
+    subtitle: 'Premium Boat Maintenance & Refit',
+    slogan: 'Your boat is in safe hands.',
+    heroBtnPrimary: 'Chat on WhatsApp',
+    heroBtnSecondary: 'Explore Services',
+    statsTitle: 'Why FM Marina?',
+    stat1: 'Years of marine experience',
+    stat2: 'Completed boat projects',
+    stat3: 'Fast response support',
+    servicesTitle: 'Our Services',
+    service1: 'Boat Maintenance & Repair',
+    service2: 'Painting Services',
+    service3: 'Sanding & Surface Preparation',
+    service4: 'Polish & Detailing',
+    service1d: 'Safe and long-lasting maintenance at marina standards.',
+    service2d: 'Professional paintwork for aesthetics and durability.',
+    service3d: 'Perfect preparation for premium finish quality.',
+    service4d: 'Shine, protection and like-new appearance.',
+    beforeAfterTitle: 'Before / After',
+    beforeLabel: 'Before',
+    afterLabel: 'After',
+    reviewsTitle: 'Google Reviews',
+    review1: '★★★★★<br>"Our boat looks brand new again."',
+    review2: '★★★★★<br>"Fast communication and flawless workmanship."',
+    review3: '★★★★★<br>"Professional and trustworthy team."',
+    ctaTitle: 'Get a Quote',
+    ctaText: 'Contact us instantly via WhatsApp',
+    ctaBtn: 'Chat on WhatsApp'
+  },
+  de: {
+    subtitle: 'Premium Bootsservice & Wartung',
+    slogan: 'Ihr Boot in sicheren Händen.',
+    heroBtnPrimary: 'Per WhatsApp schreiben',
+    heroBtnSecondary: 'Leistungen ansehen',
+    statsTitle: 'Warum FM Marina?',
+    stat1: 'Jahre Branchenerfahrung',
+    stat2: 'Abgeschlossene Bootsprojekte',
+    stat3: 'Schneller Support',
+    servicesTitle: 'Leistungen',
+    service1: 'Bootswartung & Reparatur',
+    service2: 'Lackierarbeiten',
+    service3: 'Schleifen & Oberflächenvorbereitung',
+    service4: 'Politur & Aufbereitung',
+    service1d: 'Sichere und langlebige Wartung nach Marina-Standards.',
+    service2d: 'Professionelle Lackierung für Optik und Haltbarkeit.',
+    service3d: 'Perfekte Vorbereitung für ein makelloses Ergebnis.',
+    service4d: 'Glanz, Schutz und Neuzustand-Optik.',
+    beforeAfterTitle: 'Vorher / Nachher',
+    beforeLabel: 'Vorher',
+    afterLabel: 'Nachher',
+    reviewsTitle: 'Google Bewertungen',
+    review1: '★★★★★<br>"Unser Boot sieht wieder wie neu aus."',
+    review2: '★★★★★<br>"Schnelle Kommunikation, perfekte Arbeit."',
+    review3: '★★★★★<br>"Professionell und zuverlässig."',
+    ctaTitle: 'Angebot anfragen',
+    ctaText: 'Kontaktieren Sie uns über WhatsApp',
+    ctaBtn: 'WhatsApp schreiben'
+  },
+  ru: {
+    subtitle: 'Премиальный уход и ремонт лодок',
+    slogan: 'Ваше судно в надежных руках.',
+    heroBtnPrimary: 'Написать в WhatsApp',
+    heroBtnSecondary: 'Услуги',
+    statsTitle: 'Почему FM Marina?',
+    stat1: 'Лет опыта в отрасли',
+    stat2: 'Завершенных проектов',
+    stat3: 'Быстрая поддержка',
+    servicesTitle: 'Наши услуги',
+    service1: 'Обслуживание и ремонт лодок',
+    service2: 'Покрасочные работы',
+    service3: 'Шлифовка и подготовка поверхности',
+    service4: 'Полировка и детейлинг',
+    service1d: 'Надежное и долговечное обслуживание по стандартам марины.',
+    service2d: 'Профессиональная покраска: эстетика и защита.',
+    service3d: 'Идеальная подготовка поверхности для лучшего результата.',
+    service4d: 'Блеск, защита и вид как в первый день.',
+    beforeAfterTitle: 'До / После',
+    beforeLabel: 'До',
+    afterLabel: 'После',
+    reviewsTitle: 'Отзывы Google',
+    review1: '★★★★★<br>"Лодка выглядит как новая."',
+    review2: '★★★★★<br>"Быстрая связь и отличное качество."',
+    review3: '★★★★★<br>"Профессионально и надежно."',
+    ctaTitle: 'Получить предложение',
+    ctaText: 'Свяжитесь с нами через WhatsApp',
+    ctaBtn: 'Написать в WhatsApp'
+  }
+};
+
 function setLang(lang) {
   currentLang = lang;
 
-  document.querySelectorAll('.lang-switch button')
-    .forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+  document.querySelectorAll('.lang-switch button').forEach((button) => {
+    button.classList.toggle('active', button.dataset.lang === lang);
+  });
 
-  const data = {
-    tr: {
-      subtitle: 'Premium Tekne Bakım • Onarım • Boya • Cila',
-      slogan: 'Tekneniz emin ellerde.',
-      servicesTitle: 'Hizmetlerimiz',
-      s1: 'Tekne Bakım & Onarım',
-      s2: 'Boya Uygulamaları',
-      s3: 'Zımpara & Yüzey Hazırlığı',
-      s4: 'Cila & Polish',
-      beforeAfter: 'Önce / Sonra',
-      reviews: 'Google Yorumları',
-      cta: 'Teklif Al',
-      ctatext: 'WhatsApp üzerinden hızlıca iletişime geçin',
-      ctabtn: 'WhatsApp’tan Yaz',
-      wa: 'Merhaba, teknem için bakım ve onarım hizmeti hakkında bilgi almak istiyorum.'
-    },
-    en: {
-      subtitle: 'Premium Boat Maintenance & Refit',
-      slogan: 'Your boat is in safe hands.',
-      servicesTitle: 'Our Services',
-      s1: 'Boat Maintenance & Repair',
-      s2: 'Painting Services',
-      s3: 'Sanding & Surface Preparation',
-      s4: 'Polish & Detailing',
-      beforeAfter: 'Before / After',
-      reviews: 'Google Reviews',
-      cta: 'Get a Quote',
-      ctatext: 'Contact us instantly via WhatsApp',
-      ctabtn: 'Chat on WhatsApp',
-      wa: 'Hello, I would like to get information about boat maintenance and repair services.'
-    },
-    de: {
-      subtitle: 'Premium Bootsservice & Wartung',
-      slogan: 'Ihr Boot in sicheren Händen.',
-      servicesTitle: 'Leistungen',
-      s1: 'Bootswartung & Reparatur',
-      s2: 'Lackierarbeiten',
-      s3: 'Schleifen & Oberflächenvorbereitung',
-      s4: 'Politur & Aufbereitung',
-      beforeAfter: 'Vorher / Nachher',
-      reviews: 'Google Bewertungen',
-      cta: 'Angebot anfragen',
-      ctatext: 'Kontaktieren Sie uns über WhatsApp',
-      ctabtn: 'WhatsApp schreiben',
-      wa: 'Hallo, ich möchte Informationen zu Bootsservice und Wartung erhalten.'
-    },
-    ru: {
-      subtitle: 'Премиальный уход и ремонт лодок',
-      slogan: 'Ваше судно в надежных руках.',
-      servicesTitle: 'Наши услуги',
-      s1: 'Обслуживание и ремонт лодок',
-      s2: 'Покрасочные работы',
-      s3: 'Шлифовка и подготовка поверхности',
-      s4: 'Полировка и детейлинг',
-      beforeAfter: 'До / После',
-      reviews: 'Отзывы Google',
-      cta: 'Получить предложение',
-      ctatext: 'Свяжитесь с нами через WhatsApp',
-      ctabtn: 'Написать в WhatsApp',
-      wa: 'Здравствуйте, хочу получить информацию об обслуживании и ремонте лодки.'
+  const data = content[lang];
+  Object.entries(data).forEach(([id, value]) => {
+    const element = document.getElementById(id);
+    if (!element) return;
+    if (value.includes('<br>')) {
+      element.innerHTML = value;
+    } else {
+      element.textContent = value;
     }
-  }[lang];
-
-  subtitle.innerText = data.subtitle;
-  slogan.innerText = data.slogan;
-  servicesTitle.innerText = data.servicesTitle;
-  s1.innerText = data.s1;
-  s2.innerText = data.s2;
-  s3.innerText = data.s3;
-  s4.innerText = data.s4;
-  document.querySelectorAll('section h2')[1].innerText = data.beforeAfter;
-  document.querySelectorAll('section h2')[2].innerText = data.reviews;
-  ctaTitle.innerText = data.cta;
-  ctaText.innerText = data.ctatext;
-  ctaBtn.innerText = data.ctabtn;
+  });
 }
 
-function openServiceWA(service){
-  const svcMsg={
-    maintenance:{
-      tr:'Tekne bakım ve onarım hizmeti hakkında bilgi almak istiyorum.',
-      en:'I would like information about boat maintenance and repair.',
-      de:'Ich möchte Informationen zur Bootswartung erhalten.',
-      ru:'Хочу получить информацию по обслуживанию лодки.'
+document.querySelectorAll('.lang-switch button').forEach((button) => {
+  button.addEventListener('click', () => setLang(button.dataset.lang));
+});
+
+function openServiceWA(service) {
+  const svcMsg = {
+    maintenance: {
+      tr: 'Tekne bakım ve onarım hizmeti hakkında bilgi almak istiyorum.',
+      en: 'I would like information about boat maintenance and repair.',
+      de: 'Ich möchte Informationen zur Bootswartung erhalten.',
+      ru: 'Хочу получить информацию по обслуживанию лодки.'
     },
-    paint:{
-      tr:'Tekne boya hizmeti hakkında bilgi almak istiyorum.',
-      en:'I would like information about boat painting services.',
-      de:'Ich möchte Informationen zu Lackierarbeiten erhalten.',
-      ru:'Хочу получить информацию о покраске лодки.'
+    paint: {
+      tr: 'Tekne boya hizmeti hakkında bilgi almak istiyorum.',
+      en: 'I would like information about boat painting services.',
+      de: 'Ich möchte Informationen zu Lackierarbeiten erhalten.',
+      ru: 'Хочу получить информацию о покраске лодки.'
     },
-    sanding:{
-      tr:'Zımpara ve yüzey hazırlığı hakkında bilgi almak istiyorum.',
-      en:'I would like information about sanding and surface preparation.',
-      de:'Ich möchte Informationen zur Oberflächenvorbereitung erhalten.',
-      ru:'Хочу получить информацию о шлифовке и подготовке поверхности.'
+    sanding: {
+      tr: 'Zımpara ve yüzey hazırlığı hakkında bilgi almak istiyorum.',
+      en: 'I would like information about sanding and surface preparation.',
+      de: 'Ich möchte Informationen zur Oberflächenvorbereitung erhalten.',
+      ru: 'Хочу получить информацию о шлифовке и подготовке поверхности.'
     },
-    polish:{
-      tr:'Cila ve polish hizmeti hakkında bilgi almak istiyorum.',
-      en:'I would like information about polishing and detailing.',
-      de:'Ich möchte Informationen zur Politur erhalten.',
-      ru:'Хочу получить информацию о полировке.'
+    polish: {
+      tr: 'Cila ve polish hizmeti hakkında bilgi almak istiyorum.',
+      en: 'I would like information about polishing and detailing.',
+      de: 'Ich möchte Informationen zur Politur erhalten.',
+      ru: 'Хочу получить информацию о полировке.'
     }
   };
+
   const msg = encodeURIComponent(svcMsg[service][currentLang]);
   window.open('https://wa.me/905388834648?text=' + msg, '_blank');
 }
 
-/* WHATSAPP OPEN */
 function openWhatsApp() {
   const messages = {
     tr: 'Merhaba, teknem için bakım ve onarım hizmeti hakkında bilgi almak istiyorum.',
@@ -344,33 +344,7 @@ function openWhatsApp() {
 }
 </script>
 
-<!-- FLOATING WHATSAPP -->
-<a href="#" onclick="openWhatsApp()" class="whatsapp-float">💬</a>
-
-<style>
-.whatsapp-float{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  background:#25d366;
-  color:#fff;
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  box-shadow:0 10px 30px rgba(0,0,0,.35);
-  z-index:999;
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(37,211,102,.6)}
-  70%{box-shadow:0 0 0 15px rgba(37,211,102,0)}
-  100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}
-}
-</style>
+<a href="#" onclick="openWhatsApp()" class="whatsapp-float" aria-label="Open WhatsApp chat">💬</a>
 
 </body>
 </html>
