@@ -1,0 +1,9 @@
+{
+  "name": "fmmarina-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "FM Marina web sitesi ve Instagram API proxy",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

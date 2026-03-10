@@ -63,6 +63,16 @@
   .before{background-image:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.68)),url("https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80")}
   .after{background-image:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.68)),url("https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=900&q=80")}
 
+  .insta-wrap{margin-top:20px}
+  .insta-status{text-align:center;color:var(--muted);margin-bottom:16px;font-size:14px}
+  .insta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+  .insta-card{position:relative;border-radius:14px;overflow:hidden;background:#0a2238;box-shadow:0 10px 30px rgba(0,0,0,.35);min-height:250px}
+  .insta-card img{width:100%;height:220px;object-fit:cover;display:block}
+  .insta-card .meta{padding:12px}
+  .insta-card p{font-size:13px;opacity:.92;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .insta-type{position:absolute;top:10px;left:10px;background:rgba(8,23,38,.8);padding:5px 10px;border-radius:999px;font-size:11px;font-weight:600;border:1px solid rgba(255,255,255,.22)}
+  .insta-link{display:inline-block;margin-top:8px;color:var(--accent);font-size:13px;font-weight:600}
+
   .cta{background:linear-gradient(180deg,#0f2f4a,#081726);text-align:center;padding:100px 20px}
   .cta h2{font-size:34px;margin-bottom:10px}
   .cta p{font-size:18px;opacity:.9}
@@ -140,6 +150,14 @@
   </div>
 </section>
 
+<section>
+  <h2 id="instaTitle">Instagram'dan Son Paylaşımlar</h2>
+  <div class="insta-wrap">
+    <div class="insta-status" id="instaStatus" data-state="loading">Yükleniyor...</div>
+    <div class="insta-grid" id="instaGrid"></div>
+  </div>
+</section>
+
 <section class="cta">
   <h2 id="ctaTitle">Teklif Al</h2>
   <p id="ctaText">WhatsApp üzerinden hızlıca iletişime geçin</p>
@@ -157,6 +175,10 @@ window.addEventListener('scroll', () => {
 });
 
 let currentLang = 'tr';
+const instagramConfig = {
+  endpoint: window.FM_INSTAGRAM_ENDPOINT || '/api/instagram-media',
+  maxItems: 6
+};
 
 const content = {
   tr: {
@@ -181,6 +203,11 @@ const content = {
     beforeLabel: 'Önce',
     afterLabel: 'Sonra',
     reviewsTitle: 'Google Yorumları',
+    instaTitle: "Instagram'dan Son Paylaşımlar",
+    instaLoading: 'Instagram içerikleri yükleniyor...',
+    instaEmpty: 'Instagram profilinde henüz paylaşım bulunamadı.',
+    instaError: 'Instagram akışı şu anda alınamıyor. Lütfen biraz sonra tekrar deneyin.',
+    instaView: 'Instagram’da Gör',
     review1: '★★★★★<br>"Teknemiz ilk günkü gibi oldu."',
     review2: '★★★★★<br>"Hızlı iletişim, mükemmel işçilik."',
     review3: '★★★★★<br>"Profesyonel ve güvenilir."',
@@ -210,6 +237,11 @@ const content = {
     beforeLabel: 'Before',
     afterLabel: 'After',
     reviewsTitle: 'Google Reviews',
+    instaTitle: 'Latest From Instagram',
+    instaLoading: 'Loading Instagram posts...',
+    instaEmpty: 'No posts found yet.',
+    instaError: 'Instagram feed is unavailable right now. Please try again later.',
+    instaView: 'View on Instagram',
     review1: '★★★★★<br>"Our boat looks brand new again."',
     review2: '★★★★★<br>"Fast communication and flawless workmanship."',
     review3: '★★★★★<br>"Professional and trustworthy team."',
@@ -239,6 +271,11 @@ const content = {
     beforeLabel: 'Vorher',
     afterLabel: 'Nachher',
     reviewsTitle: 'Google Bewertungen',
+    instaTitle: 'Neueste Instagram Beiträge',
+    instaLoading: 'Instagram-Beiträge werden geladen...',
+    instaEmpty: 'Noch keine Beiträge vorhanden.',
+    instaError: 'Instagram-Feed konnte nicht geladen werden. Bitte später erneut versuchen.',
+    instaView: 'Auf Instagram ansehen',
     review1: '★★★★★<br>"Unser Boot sieht wieder wie neu aus."',
     review2: '★★★★★<br>"Schnelle Kommunikation, perfekte Arbeit."',
     review3: '★★★★★<br>"Professionell und zuverlässig."',
@@ -268,6 +305,11 @@ const content = {
     beforeLabel: 'До',
     afterLabel: 'После',
     reviewsTitle: 'Отзывы Google',
+    instaTitle: 'Последние публикации Instagram',
+    instaLoading: 'Загружаем публикации Instagram...',
+    instaEmpty: 'Публикации пока не найдены.',
+    instaError: 'Лента Instagram сейчас недоступна. Попробуйте позже.',
+    instaView: 'Открыть в Instagram',
     review1: '★★★★★<br>"Лодка выглядит как новая."',
     review2: '★★★★★<br>"Быстрая связь и отличное качество."',
     review3: '★★★★★<br>"Профессионально и надежно."',
@@ -294,7 +336,19 @@ function setLang(lang) {
       element.textContent = value;
     }
   });
+
+  const status = document.getElementById('instaStatus');
+  if (status && status.dataset.state !== 'ready') {
+    const state = status.dataset.state || 'loading';
+    const key = `insta${state.charAt(0).toUpperCase() + state.slice(1)}`;
+    status.textContent = data[key] || data.instaLoading;
+  }
+
+  document.querySelectorAll('.insta-link').forEach((link) => {
+    link.textContent = data.instaView;
+  });
 }
+
 
 document.querySelectorAll('.lang-switch button').forEach((button) => {
   button.addEventListener('click', () => setLang(button.dataset.lang));
@@ -342,6 +396,83 @@ function openWhatsApp() {
   const msg = encodeURIComponent(messages[currentLang]);
   window.open('https://wa.me/905388834648?text=' + msg, '_blank');
 }
+
+function setInstaStatus(state) {
+  const status = document.getElementById('instaStatus');
+  if (!status) return;
+  status.dataset.state = state;
+  const labels = {
+    loading: content[currentLang].instaLoading,
+    empty: content[currentLang].instaEmpty,
+    error: content[currentLang].instaError,
+    ready: ''
+  };
+  status.textContent = labels[state] || '';
+}
+
+function normalizeInstagramData(payload) {
+  const rows = Array.isArray(payload) ? payload : payload.data;
+  if (!Array.isArray(rows)) return [];
+
+  return rows
+    .map((item) => ({
+      media_type: item.media_type || 'IMAGE',
+      media_url: item.media_url || item.thumbnail_url,
+      thumbnail_url: item.thumbnail_url || item.media_url,
+      caption: item.caption || '',
+      permalink: item.permalink || '#'
+    }))
+    .filter((item) => item.thumbnail_url || item.media_url)
+    .slice(0, instagramConfig.maxItems);
+}
+
+function renderInstagram(items) {
+  const grid = document.getElementById('instaGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  items.forEach((item) => {
+    const card = document.createElement('article');
+    card.className = 'insta-card';
+    const thumb = item.media_type === 'VIDEO' ? item.thumbnail_url : item.media_url;
+
+    card.innerHTML = `
+      <span class="insta-type">${item.media_type}</span>
+      <img src="${thumb}" alt="Instagram post" loading="lazy">
+      <div class="meta">
+        <p>${item.caption || 'FM Marina'}</p>
+        <a class="insta-link" href="${item.permalink}" target="_blank" rel="noopener">${content[currentLang].instaView}</a>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+async function fetchInstagramFeed() {
+  const response = await fetch(instagramConfig.endpoint, { headers: { Accept: 'application/json' } });
+  if (!response.ok) {
+    throw new Error('Instagram API request failed');
+  }
+  const data = await response.json();
+  return normalizeInstagramData(data);
+}
+
+async function initInstagramFeed() {
+  setInstaStatus('loading');
+  try {
+    const items = await fetchInstagramFeed();
+    if (!items.length) {
+      setInstaStatus('empty');
+      return;
+    }
+    renderInstagram(items);
+    setInstaStatus('ready');
+  } catch (error) {
+    setInstaStatus('error');
+  }
+}
+
+initInstagramFeed();
 </script>
 
 <a href="#" onclick="openWhatsApp()" class="whatsapp-float" aria-label="Open WhatsApp chat">💬</a>
