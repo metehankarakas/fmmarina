@@ -6,49 +6,33 @@
   <title>FM Marina | Premium Tekne Bakım & Onarım</title>
   <meta name="description" content="FM Marina – tekne bakım, onarım, boya, zımpara ve cila hizmetleri." />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #061422;
+      --bg: #041322;
       --bg-soft: #0b2742;
-      --card: #102f4b;
-      --card-soft: #18486f;
-      --accent: #87d7ff;
-      --accent-2: #56b4ef;
-      --text: #f3fbff;
-      --muted: #b9d8ef;
-      --wa: #25D366;
-      --border: rgba(136, 208, 255, 0.25);
-      --shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: "Inter", "Segoe UI", Arial, sans-serif;
-      background: radial-gradient(circle at top, #133b60 0%, var(--bg) 34%);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    :root {
-      --bg: #061220;
-      --bg-soft: #0a1f36;
-      --card: #102b46;
-      --card-soft: #14395c;
-      --accent: #7dd2ff;
-      --accent-2: #5ab6f2;
+      --card: #0f2f4b;
+      --card-soft: #194c74;
+      --accent: #8ddcff;
+      --accent-2: #5cbdf6;
       --text: #f4fbff;
-      --muted: #b9d8ef;
+      --muted: #bad8ee;
       --wa: #25D366;
-      --border: rgba(140, 209, 255, 0.22);
+      --border: rgba(140, 209, 255, 0.28);
+      --shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+      --radius: 18px;
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
     body {
       font-family: "Inter", "Segoe UI", Arial, sans-serif;
-      background: radial-gradient(circle at top, #0e2b46 0%, var(--bg) 40%);
       color: var(--text);
       line-height: 1.6;
+      background:
+        radial-gradient(circle at 20% -10%, #1b567f 0, transparent 34%),
+        radial-gradient(circle at 85% 0%, #0f395a 0, transparent 28%),
+        linear-gradient(180deg, #06192b 0%, #041322 100%);
+      overflow-x: hidden;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -56,230 +40,206 @@
     .sticky {
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
+      inset-inline: 0;
       display: none;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       padding: 10px 16px;
-      background: rgba(6, 17, 29, 0.9);
+      background: rgba(4, 19, 34, 0.8);
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(7px);
+      backdrop-filter: blur(10px);
       z-index: 999;
     }
 
     .sticky img { width: 42px; height: 42px; object-fit: contain; }
-    .sticky span { color: var(--muted); font-size: 13px; }
+    .sticky span { font-size: 13px; color: var(--muted); }
 
     header {
-      min-height: 90vh;
-      position: relative;
-      padding: 24px 20px 74px;
-      background: linear-gradient(rgba(6, 20, 34, .77), rgba(6, 20, 34, .94)), url("bg.png") center/cover no-repeat;
-      gap: 12px;
-      background: rgba(5, 17, 30, 0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 16px;
-      z-index: 999;
-    }
-
-    .sticky img { width: 46px; height: 46px; object-fit: contain; }
-    .sticky span { font-size: 14px; color: var(--muted); }
-
-    header {
-      position: relative;
-      min-height: 88vh;
-      padding: 28px 20px 70px;
-      background: linear-gradient(rgba(6, 18, 32, 0.78), rgba(6, 18, 32, 0.95)), url("bg.png") center/cover no-repeat;
+      min-height: 92vh;
+      padding: 24px 20px 80px;
+      background: linear-gradient(rgba(4, 19, 34, 0.72), rgba(4, 19, 34, 0.92)), url("bg.png") center/cover no-repeat;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      border-bottom: 1px solid var(--border);
     }
 
+    .topbar,
+    .hero,
+    section,
+    .cta { width: min(1120px, 100%); margin-inline: auto; }
+
     .topbar {
-      width: min(1150px, 100%);
-      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand img { width: 68px; height: 68px; object-fit: contain; }
-    .brand p { font-weight: 700; letter-spacing: 1px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { width: 68px; height: 68px; }
+    .brand p { font-weight: 700; letter-spacing: 1.2px; }
 
     .lang-switch { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
     .lang-switch button {
       border: 1px solid rgba(255, 255, 255, 0.4);
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--text);
       padding: 6px 11px;
       border-radius: 999px;
-      cursor: pointer;
       font-size: 12px;
-      transition: 0.25s;
+      cursor: pointer;
+      transition: 0.2s;
     }
     .lang-switch button.active,
-    .lang-switch button:hover { background: var(--accent); color: #062035; border-color: var(--accent); }
+    .lang-switch button:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #072238;
+    }
 
     .hero {
-      width: min(1150px, 100%);
-      margin: auto;
       text-align: center;
-      padding-top: 32px;
+      margin-top: 24px;
+      padding-top: 26px;
     }
 
-    h1 { font-size: clamp(36px, 8vw, 64px); letter-spacing: 1px; }
-    .hero-subtitle { margin-top: 8px; font-size: clamp(18px, 2.4vw, 24px); color: var(--muted); }
-    .hero-slogan { margin-top: 10px; font-style: italic; opacity: 0.9; }
+    h1 { font-size: clamp(38px, 8vw, 70px); letter-spacing: 2px; }
+    .hero-subtitle { margin-top: 10px; font-size: clamp(18px, 2.3vw, 25px); color: var(--muted); }
+    .hero-slogan { display: block; margin-top: 10px; font-style: italic; opacity: 0.9; }
 
-    .hero-actions {
-      margin-top: 30px;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+    .hero-actions { margin-top: 30px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
 
     .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 999px;
       font-weight: 700;
-      padding: 12px 24px;
-      transition: 0.25s;
+      padding: 13px 24px;
       border: 1px solid transparent;
+      transition: 0.25s;
+      cursor: pointer;
     }
-
-    .btn.primary { background: var(--wa); color: white; }
-    .btn.secondary { border-color: rgba(255, 255, 255, 0.42); background: rgba(255, 255, 255, 0.08); }
     .btn:hover { transform: translateY(-2px); }
+    .btn.primary { background: var(--wa); color: #fff; }
+    .btn.secondary { background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.42); }
 
     .badges {
-      margin: 34px auto 0;
+      margin-top: 32px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
-      width: min(900px, 100%);
     }
 
     .badge {
-      padding: 12px;
-      background: rgba(8, 33, 56, 0.65);
+      background: rgba(12, 40, 64, 0.7);
       border: 1px solid var(--border);
       border-radius: 12px;
-      font-size: 14px;
+      padding: 12px;
       color: var(--muted);
+      font-size: 14px;
     }
 
-    section { width: min(1150px, 100%); margin: 0 auto; padding: 80px 20px; }
-    h2 { text-align: center; color: var(--accent); margin-bottom: 26px; }
+    section { padding: 78px 20px; }
+    h2 { text-align: center; color: var(--accent); margin-bottom: 24px; font-size: clamp(28px, 4vw, 36px); }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-    }
+    .stats,
+    .services,
+    .process,
+    .insta-grid { display: grid; gap: 16px; }
 
-    .stat {
+    .stats { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+    .services { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+    .process { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-top: 12px; }
+
+    .card,
+    .stat,
+    .step,
+    .insta-card {
       background: linear-gradient(180deg, var(--card-soft), var(--card));
       border: 1px solid var(--border);
-      border-radius: 14px;
-      text-align: center;
-      padding: 20px 12px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
-    .stat strong { font-size: 28px; display: block; margin-bottom: 4px; }
+    .stat { text-align: center; padding: 22px 12px; }
+    .stat strong { font-size: 30px; display: block; margin-bottom: 3px; }
     .stat span { color: var(--muted); font-size: 14px; }
-
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px;
-    }
 
     .card {
       position: relative;
-      background: linear-gradient(180deg, var(--card-soft), var(--card));
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      transition: 0.3s;
-      cursor: pointer;
       overflow: hidden;
+      padding: 24px;
+      cursor: pointer;
+      transition: transform 0.25s;
     }
-
+    .card:hover { transform: translateY(-4px); }
     .card::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(125, 210, 255, 0.18), transparent);
+      background: linear-gradient(110deg, transparent, rgba(141, 220, 255, 0.16), transparent);
       opacity: 0;
-      transition: 0.25s;
+      transition: 0.3s;
     }
-
     .card:hover::after { opacity: 1; }
-    .card:hover { transform: translateY(-4px); }
 
-    .card span { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; }
-    .card strong { font-size: 20px; display: block; margin-bottom: 6px; }
-    .card .svc-desc { color: var(--muted); font-size: 14px; }
+    .card span { color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+    .card strong { display: block; font-size: 20px; margin: 8px 0 6px; }
+    .card p { color: var(--muted); font-size: 14px; }
 
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .step { padding: 20px; }
+    .step strong { display: block; margin-bottom: 6px; color: var(--accent); }
+    .step p { color: var(--muted); font-size: 14px; }
+
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 12px; }
     .gallery-item {
-      height: 200px;
-      border-radius: 14px;
+      height: 220px;
+      border-radius: var(--radius);
       display: flex;
       align-items: flex-end;
       padding: 16px;
       font-size: 18px;
       font-weight: 700;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
     }
 
-    .before { background: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.75)), url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80') center/cover no-repeat; }
-    .after { background: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.75)), url('https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=900&q=80') center/cover no-repeat; }
+    .before { background: linear-gradient(rgba(0,0,0,.12), rgba(0,0,0,.74)), url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80') center/cover no-repeat; }
+    .after { background: linear-gradient(rgba(0,0,0,.12), rgba(0,0,0,.74)), url('https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=900&q=80') center/cover no-repeat; }
 
     .insta-status { text-align: center; color: var(--muted); margin-bottom: 14px; }
-    .insta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
-    .insta-card { background: #0a2238; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .insta-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .insta-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .insta-card { overflow: hidden; }
+    .insta-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
     .insta-card .meta { padding: 12px; }
-    .insta-card p { font-size: 13px; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .insta-link { color: var(--accent); font-size: 13px; display: inline-block; margin-top: 8px; font-weight: 700; }
+    .insta-card p {
+      color: var(--muted);
+      font-size: 13px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .insta-link { display: inline-block; margin-top: 8px; color: var(--accent); font-weight: 700; font-size: 13px; }
 
     .cta {
-      margin: 30px auto 80px;
-      width: min(1100px, calc(100% - 40px));
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: linear-gradient(130deg, #0d3452, #0a1f36);
+      margin: 20px auto 78px;
+      padding: 52px 20px;
+      border-radius: 22px;
       text-align: center;
-      padding: 56px 20px;
+      border: 1px solid var(--border);
+      background: linear-gradient(125deg, #0f3a5d, #0b2640);
+      box-shadow: var(--shadow);
     }
 
-    .cta h2 { margin-bottom: 8px; }
     .cta p { color: var(--muted); }
-    .cta a {
-      margin-top: 24px;
-      display: inline-block;
-      padding: 14px 34px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #072137;
-      font-weight: 700;
-    }
+    .cta a { margin-top: 20px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #072137; }
 
-    footer { text-align: center; padding: 36px 20px 80px; color: #9fc4dd; font-size: 14px; }
-    footer img { width: 76px; margin-bottom: 12px; }
+    footer { text-align: center; color: #98c4e3; font-size: 14px; padding: 26px 20px 80px; }
+    footer img { width: 74px; margin-bottom: 10px; }
 
     .whatsapp-float {
       position: fixed;
@@ -299,8 +259,8 @@
     }
 
     @media (max-width: 700px) {
-      header { min-height: 80vh; }
       .brand p { display: none; }
+      header { min-height: 85vh; }
       .gallery-item { height: 180px; }
     }
   </style>
@@ -317,7 +277,6 @@
         <img src="logo.png" alt="FM Marina logo" />
         <p>FM MARINA</p>
       </div>
-
       <div class="lang-switch">
         <button class="active" data-lang="tr">TR</button>
         <button data-lang="en">EN</button>
@@ -356,10 +315,20 @@
   <section id="services">
     <h2 id="servicesTitle">Hizmetlerimiz</h2>
     <div class="services">
-      <div class="card" onclick="openServiceWA('maintenance')"><span>🛠️ Service</span><strong id="service1">Tekne Bakım & Onarım</strong><p class="svc-desc" id="service1d">Güvenli, uzun ömürlü ve marina standartlarında bakım.</p></div>
-      <div class="card" onclick="openServiceWA('paint')"><span>🎨 Service</span><strong id="service2">Boya Uygulamaları</strong><p class="svc-desc" id="service2d">Profesyonel boya, estetik ve dayanıklılık.</p></div>
-      <div class="card" onclick="openServiceWA('sanding')"><span>🧽 Service</span><strong id="service3">Zımpara & Yüzey Hazırlığı</strong><p class="svc-desc" id="service3d">Mükemmel sonuç için kusursuz hazırlık.</p></div>
-      <div class="card" onclick="openServiceWA('polish')"><span>✨ Service</span><strong id="service4">Cila & Polish</strong><p class="svc-desc" id="service4d">Parlaklık, koruma ve ilk gün görünümü.</p></div>
+      <div class="card" onclick="openServiceWA('maintenance')"><span>🛠️ Service</span><strong id="service1">Tekne Bakım & Onarım</strong><p id="service1d">Güvenli, uzun ömürlü ve marina standartlarında bakım.</p></div>
+      <div class="card" onclick="openServiceWA('paint')"><span>🎨 Service</span><strong id="service2">Boya Uygulamaları</strong><p id="service2d">Profesyonel boya, estetik ve dayanıklılık.</p></div>
+      <div class="card" onclick="openServiceWA('sanding')"><span>🧽 Service</span><strong id="service3">Zımpara & Yüzey Hazırlığı</strong><p id="service3d">Mükemmel sonuç için kusursuz hazırlık.</p></div>
+      <div class="card" onclick="openServiceWA('polish')"><span>✨ Service</span><strong id="service4">Cila & Polish</strong><p id="service4d">Parlaklık, koruma ve ilk gün görünümü.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="processTitle">Çalışma Sürecimiz</h2>
+    <div class="process">
+      <div class="step"><strong id="process1t">1) Keşif & Planlama</strong><p id="process1d">Teknenizin ihtiyaçlarını analiz eder, net bir iş planı çıkarırız.</p></div>
+      <div class="step"><strong id="process2t">2) Uygulama</strong><p id="process2d">Profesyonel ekipman ve ürünlerle bakım-onarım sürecini yürütürüz.</p></div>
+      <div class="step"><strong id="process3t">3) Kalite Kontrol</strong><p id="process3d">Teslim öncesi tüm işlemleri detaylı kalite kontrolünden geçiririz.</p></div>
+      <div class="step"><strong id="process4t">4) Teslim & Destek</strong><p id="process4d">Teslim sonrası da ulaşılabilir olur, destek sunmaya devam ederiz.</p></div>
     </div>
   </section>
 
@@ -380,7 +349,7 @@
   <section class="cta">
     <h2 id="ctaTitle">Teklif Al</h2>
     <p id="ctaText">WhatsApp üzerinden hızlıca iletişime geçin</p>
-    <a href="#" id="ctaBtn" onclick="openWhatsApp()">WhatsApp’tan Yaz</a>
+    <a href="#" class="btn" id="ctaBtn" onclick="openWhatsApp()">WhatsApp’tan Yaz</a>
   </section>
 
   <footer>
@@ -388,63 +357,71 @@
     <p id="footerText">© 2026 FM Marina</p>
   </footer>
 
-  <a href="#" onclick="openWhatsApp()" class="whatsapp-float" aria-label="Open WhatsApp chat">💬</a>
+  <a href="#" onclick="openWhatsApp()" class="whatsapp-float" aria-label="WhatsApp">💬</a>
 
   <script>
-    window.addEventListener('scroll', () => {
-      document.getElementById('sticky').style.display = window.scrollY > 160 ? 'flex' : 'none';
-    });
+    const instagramConfig = {
+      endpoint: '',
+      fallbackPath: 'instagram-feed.json',
+      accessToken: '',
+      userId: '',
+      graphApiVersion: 'v20.0',
+      maxItems: 6
+    };
 
     let currentLang = 'tr';
-    const instagramConfig = {
-      fallbackPath: './instagram-feed.json',
-      endpoint: window.FM_INSTAGRAM_ENDPOINT || '/api/instagram-media',
-      graphApiVersion: window.FM_INSTAGRAM_GRAPH_VERSION || 'v23.0',
-      userId: window.FM_INSTAGRAM_USER_ID || '',
-      accessToken: window.FM_INSTAGRAM_ACCESS_TOKEN || '',
-      maxItems: 6,
-      requestTimeoutMs: 6000
-    };
 
     const content = {
       tr: {
-        subtitle: 'Premium Tekne Bakım • Onarım • Boya • Cila', slogan: 'Tekneniz emin ellerde.', heroBtnPrimary: 'WhatsApp’tan Yaz', heroBtnSecondary: 'Hizmetleri Keşfet',
+        subtitle: 'Premium Tekne Bakım • Onarım • Boya • Cila',
+        slogan: 'Tekneniz emin ellerde.',
+        heroBtnPrimary: 'WhatsApp’tan Yaz', heroBtnSecondary: 'Hizmetleri Keşfet',
         badge1: '⚓ Marina standartlarında profesyonel işçilik', badge2: '✅ Hızlı teslimat ve şeffaf süreç yönetimi', badge3: '💬 Süreç boyunca aktif müşteri iletişimi',
         statsTitle: 'Neden FM Marina?', stat1: 'Yıllık sektör deneyimi', stat2: 'Tamamlanan tekne projesi', stat3: 'Hızlı iletişim desteği',
         servicesTitle: 'Hizmetlerimiz', service1: 'Tekne Bakım & Onarım', service2: 'Boya Uygulamaları', service3: 'Zımpara & Yüzey Hazırlığı', service4: 'Cila & Polish',
         service1d: 'Güvenli, uzun ömürlü ve marina standartlarında bakım.', service2d: 'Profesyonel boya, estetik ve dayanıklılık.', service3d: 'Mükemmel sonuç için kusursuz hazırlık.', service4d: 'Parlaklık, koruma ve ilk gün görünümü.',
-        beforeAfterTitle: 'Önce / Sonra', beforeLabel: 'Önce', afterLabel: 'Sonra', instaTitle: "Instagram'dan Son Paylaşımlar",
-        instaLoading: 'Instagram içerikleri yükleniyor...', instaEmpty: 'Henüz paylaşım bulunamadı.', instaError: 'Instagram akışı alınamadı.', instaView: 'Instagram’da Gör',
-        ctaTitle: 'Teklif Al', ctaText: 'WhatsApp üzerinden hızlıca iletişime geçin', ctaBtn: 'WhatsApp’tan Yaz', stickyText: 'FM Marina • Premium Tekne Hizmeti'
+        processTitle: 'Çalışma Sürecimiz', process1t: '1) Keşif & Planlama', process1d: 'Teknenizin ihtiyaçlarını analiz eder, net bir iş planı çıkarırız.', process2t: '2) Uygulama', process2d: 'Profesyonel ekipman ve ürünlerle bakım-onarım sürecini yürütürüz.', process3t: '3) Kalite Kontrol', process3d: 'Teslim öncesi tüm işlemleri detaylı kalite kontrolünden geçiririz.', process4t: '4) Teslim & Destek', process4d: 'Teslim sonrası da ulaşılabilir olur, destek sunmaya devam ederiz.',
+        beforeAfterTitle: 'Önce / Sonra', beforeLabel: 'Önce', afterLabel: 'Sonra',
+        instaTitle: "Instagram'dan Son Paylaşımlar", instaLoading: 'Yükleniyor...', instaEmpty: 'Henüz paylaşım bulunamadı.', instaError: 'Instagram akışı şu anda alınamıyor.', instaView: 'Instagram’da Gör',
+        ctaTitle: 'Teklif Al', ctaText: 'WhatsApp üzerinden hızlıca iletişime geçin', ctaBtn: 'WhatsApp’tan Yaz', stickyText: 'FM Marina • Premium Tekne Servisi'
       },
       en: {
-        subtitle: 'Premium Boat Maintenance & Refit', slogan: 'Your boat is in safe hands.', heroBtnPrimary: 'Chat on WhatsApp', heroBtnSecondary: 'Explore Services',
-        badge1: '⚓ Professional workmanship at marina standards', badge2: '✅ Fast delivery and transparent process', badge3: '💬 Active communication throughout the project',
-        statsTitle: 'Why FM Marina?', stat1: 'Years of marine experience', stat2: 'Completed boat projects', stat3: 'Fast response support',
-        servicesTitle: 'Our Services', service1: 'Boat Maintenance & Repair', service2: 'Painting Services', service3: 'Sanding & Surface Preparation', service4: 'Polish & Detailing',
-        service1d: 'Safe and long-lasting maintenance at marina standards.', service2d: 'Professional paintwork for aesthetics and durability.', service3d: 'Perfect preparation for premium finish quality.', service4d: 'Shine, protection and like-new appearance.',
-        beforeAfterTitle: 'Before / After', beforeLabel: 'Before', afterLabel: 'After', instaTitle: 'Latest From Instagram',
-        instaLoading: 'Loading Instagram posts...', instaEmpty: 'No posts found yet.', instaError: 'Instagram feed is unavailable right now.', instaView: 'View on Instagram',
-        ctaTitle: 'Get a Quote', ctaText: 'Contact us instantly via WhatsApp', ctaBtn: 'Chat on WhatsApp', stickyText: 'FM Marina • Premium Boat Service'
+        subtitle: 'Premium Boat Maintenance • Repair • Paint • Polish',
+        slogan: 'Your boat is in safe hands.',
+        heroBtnPrimary: 'Message on WhatsApp', heroBtnSecondary: 'Explore Services',
+        badge1: '⚓ Professional craftsmanship at marina standards', badge2: '✅ Fast delivery and transparent process', badge3: '💬 Active customer communication throughout the process',
+        statsTitle: 'Why FM Marina?', stat1: 'Years of industry experience', stat2: 'Completed boat projects', stat3: 'Fast communication support',
+        servicesTitle: 'Our Services', service1: 'Boat Maintenance & Repair', service2: 'Paint Applications', service3: 'Sanding & Surface Prep', service4: 'Polish & Detailing',
+        service1d: 'Safe, durable maintenance at marina standards.', service2d: 'Professional painting for aesthetics and durability.', service3d: 'Perfect preparation for flawless final results.', service4d: 'Shine, protection and a first-day look.',
+        processTitle: 'How We Work', process1t: '1) Inspection & Planning', process1d: 'We assess your boat and prepare a clear action plan.', process2t: '2) Application', process2d: 'We execute maintenance and repair with professional tools.', process3t: '3) Quality Control', process3d: 'Every step is checked carefully before delivery.', process4t: '4) Delivery & Support', process4d: 'We stay reachable and continue support after delivery.',
+        beforeAfterTitle: 'Before / After', beforeLabel: 'Before', afterLabel: 'After',
+        instaTitle: 'Latest Posts from Instagram', instaLoading: 'Loading posts...', instaEmpty: 'No posts found yet.', instaError: 'Instagram feed is currently unavailable.', instaView: 'View on Instagram',
+        ctaTitle: 'Get a Quote', ctaText: 'Reach out quickly via WhatsApp', ctaBtn: 'Write on WhatsApp', stickyText: 'FM Marina • Premium Boat Care'
       },
       de: {
-        subtitle: 'Premium Bootsservice & Wartung', slogan: 'Ihr Boot in sicheren Händen.', heroBtnPrimary: 'Per WhatsApp schreiben', heroBtnSecondary: 'Leistungen ansehen',
-        badge1: '⚓ Professionelle Arbeit nach Marina-Standards', badge2: '✅ Schnelle Lieferung und transparenter Prozess', badge3: '💬 Aktive Kommunikation während des Projekts',
-        statsTitle: 'Warum FM Marina?', stat1: 'Jahre Branchenerfahrung', stat2: 'Abgeschlossene Bootsprojekte', stat3: 'Schneller Support',
-        servicesTitle: 'Leistungen', service1: 'Bootswartung & Reparatur', service2: 'Lackierarbeiten', service3: 'Schleifen & Oberflächenvorbereitung', service4: 'Politur & Aufbereitung',
-        service1d: 'Sichere und langlebige Wartung nach Marina-Standards.', service2d: 'Professionelle Lackierung für Optik und Haltbarkeit.', service3d: 'Perfekte Vorbereitung für ein makelloses Ergebnis.', service4d: 'Glanz, Schutz und Neuzustand-Optik.',
-        beforeAfterTitle: 'Vorher / Nachher', beforeLabel: 'Vorher', afterLabel: 'Nachher', instaTitle: 'Neueste Instagram Beiträge',
-        instaLoading: 'Instagram-Beiträge werden geladen...', instaEmpty: 'Noch keine Beiträge vorhanden.', instaError: 'Instagram-Feed konnte nicht geladen werden.', instaView: 'Auf Instagram ansehen',
-        ctaTitle: 'Angebot anfragen', ctaText: 'Kontaktieren Sie uns über WhatsApp', ctaBtn: 'WhatsApp schreiben', stickyText: 'FM Marina • Premium Bootsservice'
+        subtitle: 'Premium Bootswartung • Reparatur • Lackierung • Politur',
+        slogan: 'Ihr Boot ist in sicheren Händen.',
+        heroBtnPrimary: 'Per WhatsApp schreiben', heroBtnSecondary: 'Leistungen entdecken',
+        badge1: '⚓ Professionelle Arbeit nach Marina-Standard', badge2: '✅ Schnelle Lieferung und transparenter Prozess', badge3: '💬 Aktive Kundenkommunikation während des gesamten Prozesses',
+        statsTitle: 'Warum FM Marina?', stat1: 'Jahre Branchenerfahrung', stat2: 'Abgeschlossene Bootsprojekte', stat3: 'Schneller Kommunikationssupport',
+        servicesTitle: 'Unsere Leistungen', service1: 'Bootswartung & Reparatur', service2: 'Lackierarbeiten', service3: 'Schleifen & Oberflächenvorbereitung', service4: 'Politur & Detailing',
+        service1d: 'Sichere und langlebige Wartung nach Marina-Standards.', service2d: 'Professionelle Lackierung für Ästhetik und Haltbarkeit.', service3d: 'Perfekte Vorbereitung für ein makelloses Ergebnis.', service4d: 'Glanz, Schutz und ein Look wie am ersten Tag.',
+        processTitle: 'Unser Ablauf', process1t: '1) Analyse & Planung', process1d: 'Wir analysieren Ihr Boot und erstellen einen klaren Plan.', process2t: '2) Umsetzung', process2d: 'Wir führen Wartung und Reparatur professionell durch.', process3t: '3) Qualitätskontrolle', process3d: 'Alle Schritte werden vor Übergabe sorgfältig geprüft.', process4t: '4) Übergabe & Support', process4d: 'Auch nach der Übergabe bleiben wir erreichbar.',
+        beforeAfterTitle: 'Vorher / Nachher', beforeLabel: 'Vorher', afterLabel: 'Nachher',
+        instaTitle: 'Neueste Instagram-Beiträge', instaLoading: 'Beiträge werden geladen...', instaEmpty: 'Noch keine Beiträge gefunden.', instaError: 'Instagram-Feed ist derzeit nicht verfügbar.', instaView: 'Auf Instagram ansehen',
+        ctaTitle: 'Angebot anfordern', ctaText: 'Kontaktieren Sie uns schnell über WhatsApp', ctaBtn: 'Über WhatsApp schreiben', stickyText: 'FM Marina • Premium Boot Service'
       },
       ru: {
-        subtitle: 'Премиальный уход и ремонт лодок', slogan: 'Ваше судно в надежных руках.', heroBtnPrimary: 'Написать в WhatsApp', heroBtnSecondary: 'Услуги',
-        badge1: '⚓ Профессиональная работа по стандартам марины', badge2: '✅ Быстрые сроки и прозрачный процесс', badge3: '💬 Постоянная связь на каждом этапе',
+        subtitle: 'Премиум обслуживание • Ремонт • Покраска • Полировка',
+        slogan: 'Ваша лодка в надежных руках.',
+        heroBtnPrimary: 'Написать в WhatsApp', heroBtnSecondary: 'Посмотреть услуги',
+        badge1: '⚓ Профессиональная работа по стандартам марины', badge2: '✅ Быстрые сроки и прозрачный процесс', badge3: '💬 Активная коммуникация с клиентом на каждом этапе',
         statsTitle: 'Почему FM Marina?', stat1: 'Лет опыта в отрасли', stat2: 'Завершенных проектов', stat3: 'Быстрая поддержка',
         servicesTitle: 'Наши услуги', service1: 'Обслуживание и ремонт лодок', service2: 'Покрасочные работы', service3: 'Шлифовка и подготовка поверхности', service4: 'Полировка и детейлинг',
         service1d: 'Надежное и долговечное обслуживание по стандартам марины.', service2d: 'Профессиональная покраска: эстетика и защита.', service3d: 'Идеальная подготовка поверхности для лучшего результата.', service4d: 'Блеск, защита и вид как в первый день.',
-        beforeAfterTitle: 'До / После', beforeLabel: 'До', afterLabel: 'После', instaTitle: 'Последние публикации Instagram',
-        instaLoading: 'Загружаем публикации Instagram...', instaEmpty: 'Публикации пока не найдены.', instaError: 'Лента Instagram сейчас недоступна.', instaView: 'Открыть в Instagram',
+        processTitle: 'Как мы работаем', process1t: '1) Осмотр и план', process1d: 'Анализируем состояние лодки и формируем четкий план.', process2t: '2) Выполнение работ', process2d: 'Проводим обслуживание и ремонт профессионально.', process3t: '3) Контроль качества', process3d: 'Проверяем все этапы перед передачей.', process4t: '4) Передача и поддержка', process4d: 'Остаемся на связи и после завершения работ.',
+        beforeAfterTitle: 'До / После', beforeLabel: 'До', afterLabel: 'После',
+        instaTitle: 'Последние публикации Instagram', instaLoading: 'Загружаем публикации...', instaEmpty: 'Публикации пока не найдены.', instaError: 'Лента Instagram сейчас недоступна.', instaView: 'Открыть в Instagram',
         ctaTitle: 'Получить предложение', ctaText: 'Свяжитесь с нами через WhatsApp', ctaBtn: 'Написать в WhatsApp', stickyText: 'FM Marina • Премиум сервис лодок'
       }
     };
@@ -456,8 +433,10 @@
         const el = document.getElementById(id);
         if (el) el.textContent = value;
       });
+
       const status = document.getElementById('instaStatus');
-      if (status && status.dataset.state === 'loading') status.textContent = content[lang].instaLoading;
+      if (status?.dataset.state === 'loading') status.textContent = content[lang].instaLoading;
+      document.querySelectorAll('.insta-link').forEach((link) => link.textContent = content[lang].instaView);
     }
 
     document.querySelectorAll('.lang-switch button').forEach((button) => {
@@ -490,11 +469,53 @@
       const status = document.getElementById('instaStatus');
       if (!status) return;
       status.dataset.state = state;
-      const labels = { loading: content[currentLang].instaLoading, empty: content[currentLang].instaEmpty, error: content[currentLang].instaError, ready: '' };
+      const labels = {
+        loading: content[currentLang].instaLoading,
+        empty: content[currentLang].instaEmpty,
+        error: content[currentLang].instaError,
+        ready: ''
+      };
       status.textContent = labels[state] || '';
     }
 
-    function getInstagramSources() {
+    function normalizeInstagramData(payload) {
+      const rows = Array.isArray(payload) ? payload : payload?.data;
+      if (!Array.isArray(rows)) return [];
+
+      return rows.map((item) => ({
+        media_type: item.media_type || 'IMAGE',
+        media_url: item.media_url || item.thumbnail_url,
+        thumbnail_url: item.thumbnail_url || item.media_url,
+        caption: item.caption || '',
+        permalink: item.permalink || 'https://www.instagram.com/fmmarina/'
+      })).filter((item) => item.media_url || item.thumbnail_url);
+    }
+
+    function renderInstagram(items) {
+      const grid = document.getElementById('instaGrid');
+      if (!grid) return;
+
+      grid.innerHTML = '';
+      items.slice(0, instagramConfig.maxItems).forEach((item) => {
+        const media = item.media_type === 'VIDEO' ? item.thumbnail_url || item.media_url : item.media_url;
+        const card = document.createElement('article');
+        card.className = 'insta-card';
+        card.innerHTML = `
+          <img src="${media}" alt="Instagram paylaşımı" loading="lazy" />
+          <div class="meta">
+            <p>${item.caption || ''}</p>
+            <a class="insta-link" href="${item.permalink}" target="_blank" rel="noopener">${content[currentLang].instaView}</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      setInstaStatus(items.length ? 'ready' : 'empty');
+    }
+
+    async function fetchInstagram() {
+      setInstaStatus('loading');
+
       const sources = [];
       if (instagramConfig.accessToken) {
         const userPath = instagramConfig.userId ? `${instagramConfig.userId}/media` : 'me/media';
@@ -502,71 +523,36 @@
         url.searchParams.set('fields', 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp');
         url.searchParams.set('limit', String(instagramConfig.maxItems));
         url.searchParams.set('access_token', instagramConfig.accessToken);
-        sources.push({ type: 'graph', url: url.toString() });
+        sources.push(url.toString());
       }
-      if (instagramConfig.endpoint) sources.push({ type: 'endpoint', url: instagramConfig.endpoint });
-      if (instagramConfig.fallbackPath) sources.push({ type: 'fallback', url: instagramConfig.fallbackPath });
-      return sources;
-    }
+      if (instagramConfig.endpoint) sources.push(instagramConfig.endpoint);
+      if (instagramConfig.fallbackPath) sources.push(instagramConfig.fallbackPath);
 
-    function normalizeInstagramData(payload) {
-      const rows = Array.isArray(payload) ? payload : payload.data;
-      if (!Array.isArray(rows)) return [];
-      return rows.map((item) => ({
-        media_type: item.media_type || 'IMAGE',
-        media_url: item.media_url || item.thumbnail_url,
-        thumbnail_url: item.thumbnail_url || item.media_url,
-        caption: item.caption || '',
-        permalink: item.permalink || 'https://www.instagram.com/fmmarina/'
-      })).filter((item) => item.media_url || item.thumbnail_url).slice(0, instagramConfig.maxItems);
-    }
-
-    function renderInstagram(items) {
-      const grid = document.getElementById('instaGrid');
-      if (!grid) return;
-      grid.innerHTML = '';
-      items.forEach((item) => {
-        const card = document.createElement('article');
-        card.className = 'insta-card';
-        const thumb = item.media_type === 'VIDEO' ? (item.thumbnail_url || item.media_url) : item.media_url;
-        card.innerHTML = `<img src="${thumb}" alt="Instagram post" loading="lazy" referrerpolicy="no-referrer"><div class="meta"><p>${(item.caption || 'FM Marina').replace(/</g, '&lt;')}</p><a class="insta-link" href="${item.permalink}" target="_blank" rel="noopener">${content[currentLang].instaView}</a></div>`;
-        grid.appendChild(card);
-      });
-    }
-
-    async function fetchInstagramFeed() {
-      const sources = getInstagramSources();
       for (const source of sources) {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), instagramConfig.requestTimeoutMs);
         try {
-          const response = await fetch(source.url, { headers: { Accept: 'application/json' }, signal: controller.signal, cache: 'no-store' });
+          const response = await fetch(source);
           if (!response.ok) continue;
-          const data = await response.json();
-          const normalized = normalizeInstagramData(data);
-          if (normalized.length) return normalized;
+          const payload = await response.json();
+          const normalized = normalizeInstagramData(payload);
+          if (normalized.length) {
+            renderInstagram(normalized);
+            return;
+          }
         } catch (error) {
-          // try next source
-        } finally {
-          clearTimeout(timeoutId);
+          console.warn('Instagram source failed:', source, error);
         }
       }
-      return [];
+
+      setInstaStatus('error');
     }
 
-    async function initInstagramFeed() {
-      setInstaStatus('loading');
-      const items = await fetchInstagramFeed();
-      if (!items.length) {
-        setInstaStatus('empty');
-        return;
-      }
-      renderInstagram(items);
-      setInstaStatus('ready');
-    }
+    const sticky = document.getElementById('sticky');
+    window.addEventListener('scroll', () => {
+      sticky.style.display = window.scrollY > 180 ? 'flex' : 'none';
+    });
 
     setLang('tr');
-    initInstagramFeed().catch(() => setInstaStatus('error'));
+    fetchInstagram();
   </script>
 </body>
 </html>
