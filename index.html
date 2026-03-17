@@ -176,6 +176,91 @@
     .contact-grid,
     .faq-grid { display: grid; gap: 16px; }
 
+    .estimator,
+    .testimonials {
+      background: linear-gradient(180deg, var(--card-soft), var(--card));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-top: 12px;
+    }
+
+    .estimator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(4, 19, 34, 0.65);
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .check-list label {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .estimator-result {
+      margin-top: 16px;
+      padding: 14px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      color: var(--muted);
+    }
+
+    .estimator-result strong {
+      display: block;
+      color: var(--accent);
+      font-size: 28px;
+      margin-top: 2px;
+    }
+
+    .testimonial-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .testimonial-nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .testimonial-nav button {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
     .stats { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
     .services { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
     .process { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-top: 12px; }
@@ -383,9 +468,9 @@
   <section>
     <h2 id="statsTitle">Neden FM Marina?</h2>
     <div class="stats">
-      <div class="stat"><strong>10+</strong><span id="stat1">Yıllık sektör deneyimi</span></div>
-      <div class="stat"><strong>250+</strong><span id="stat2">Tamamlanan tekne projesi</span></div>
-      <div class="stat"><strong>7/24</strong><span id="stat3">Hızlı iletişim desteği</span></div>
+      <div class="stat"><strong data-target="10">10+</strong><span id="stat1">Yıllık sektör deneyimi</span></div>
+      <div class="stat"><strong data-target="250">250+</strong><span id="stat2">Tamamlanan tekne projesi</span></div>
+      <div class="stat"><strong data-static="true">7/24</strong><span id="stat3">Hızlı iletişim desteği</span></div>
     </div>
   </section>
 
@@ -406,6 +491,52 @@
       <div class="step"><strong id="process2t">2) Uygulama</strong><p id="process2d">Profesyonel ekipman ve ürünlerle bakım-onarım sürecini yürütürüz.</p></div>
       <div class="step"><strong id="process3t">3) Kalite Kontrol</strong><p id="process3d">Teslim öncesi tüm işlemleri detaylı kalite kontrolünden geçiririz.</p></div>
       <div class="step"><strong id="process4t">4) Teslim & Destek</strong><p id="process4d">Teslim sonrası da ulaşılabilir olur, destek sunmaya devam ederiz.</p></div>
+    </div>
+  </section>
+
+
+
+  <section id="estimator">
+    <h2>Hızlı Fiyat Hesaplama</h2>
+    <div class="estimator">
+      <div class="estimator-grid">
+        <div class="field">
+          <label for="boatSize">Tekne Boyu (metre)</label>
+          <input id="boatSize" type="number" min="4" max="40" value="10" />
+        </div>
+        <div class="field">
+          <label for="serviceLevel">Paket</label>
+          <select id="serviceLevel">
+            <option value="1">Standart Bakım</option>
+            <option value="1.4">Bakım + Boya</option>
+            <option value="1.7">Komple Refit</option>
+          </select>
+        </div>
+      </div>
+      <div class="check-list">
+        <label><input type="checkbox" value="12000" class="extra-service" /> Motor detayı (+₺12.000)</label>
+        <label><input type="checkbox" value="9000" class="extra-service" /> Teak temizliği (+₺9.000)</label>
+        <label><input type="checkbox" value="6000" class="extra-service" /> Seramik koruma (+₺6.000)</label>
+      </div>
+      <div class="estimator-result">
+        Tahmini başlangıç fiyatı
+        <strong id="estimateValue">₺0</strong>
+        <small>Kesin fiyat keşif sonrası belirlenir.</small>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Müşteri Yorumları</h2>
+    <div class="testimonials">
+      <div class="testimonial-head">
+        <p id="testimonialAuthor">—</p>
+        <div class="testimonial-nav">
+          <button id="prevTestimonial" type="button">◀</button>
+          <button id="nextTestimonial" type="button">▶</button>
+        </div>
+      </div>
+      <p id="testimonialText">Yorum yükleniyor...</p>
     </div>
   </section>
 
@@ -671,8 +802,85 @@
       sticky.style.display = window.scrollY > 180 ? 'flex' : 'none';
     });
 
+
+
+    const testimonials = [
+      { author: 'Marmaris / 42ft Motoryat', text: 'Teslim süresi ve işçilik beklentimizin üstündeydi. Her aşamada fotoğrafla bilgilendirildik.' },
+      { author: 'Göcek / Yelkenli', text: 'Sezon öncesi komple bakım paketini aldık. Teknemiz hem performans hem görünüm olarak yenilendi.' },
+      { author: 'Fethiye / Gulet', text: 'Boya ve cila sonrası renk canlılığı mükemmel oldu. Ekip iletişimi çok hızlı.' }
+    ];
+
+    let testimonialIndex = 0;
+
+    function showTestimonial(index) {
+      const safeIndex = (index + testimonials.length) % testimonials.length;
+      testimonialIndex = safeIndex;
+      const item = testimonials[safeIndex];
+      const text = document.getElementById('testimonialText');
+      const author = document.getElementById('testimonialAuthor');
+      if (text) text.textContent = `“${item.text}”`;
+      if (author) author.textContent = item.author;
+    }
+
+    function initEstimator() {
+      const sizeInput = document.getElementById('boatSize');
+      const levelInput = document.getElementById('serviceLevel');
+      const output = document.getElementById('estimateValue');
+      const extras = Array.from(document.querySelectorAll('.extra-service'));
+      if (!sizeInput || !levelInput || !output) return;
+
+      const calculate = () => {
+        const size = Number(sizeInput.value) || 0;
+        const level = Number(levelInput.value) || 1;
+        const extra = extras.filter((el) => el.checked).reduce((acc, el) => acc + Number(el.value || 0), 0);
+        const base = size * 8500 * level + extra;
+        output.textContent = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', maximumFractionDigits: 0 }).format(base);
+      };
+
+      sizeInput.addEventListener('input', calculate);
+      levelInput.addEventListener('change', calculate);
+      extras.forEach((el) => el.addEventListener('change', calculate));
+      calculate();
+    }
+
+    function animateStats() {
+      const numbers = Array.from(document.querySelectorAll('.stat strong[data-target]'));
+      numbers.forEach((el) => {
+        const target = Number(el.dataset.target || 0);
+        let current = 0;
+        const step = Math.max(1, Math.ceil(target / 30));
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          el.textContent = `${current}+`;
+        }, 35);
+      });
+    }
+
+    function initDynamicSections() {
+      initEstimator();
+      showTestimonial(0);
+      document.getElementById('prevTestimonial')?.addEventListener('click', () => showTestimonial(testimonialIndex - 1));
+      document.getElementById('nextTestimonial')?.addEventListener('click', () => showTestimonial(testimonialIndex + 1));
+      setInterval(() => showTestimonial(testimonialIndex + 1), 5000);
+
+      const statsSection = document.querySelector('.stats');
+      if (!statsSection) return;
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          animateStats();
+          observer.disconnect();
+        }
+      }, { threshold: 0.5 });
+      observer.observe(statsSection);
+    }
+
     setLang('tr');
     fetchInstagram();
+    initDynamicSections();
   </script>
 </body>
 </html>
