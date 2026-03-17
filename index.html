@@ -111,6 +111,30 @@
 
     .hero-actions { margin-top: 30px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
 
+    .quick-links {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .quick-links a {
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      background: rgba(5, 24, 40, 0.6);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 13px;
+      color: var(--muted);
+      transition: 0.2s;
+    }
+
+    .quick-links a:hover {
+      color: var(--text);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -148,11 +172,15 @@
     .stats,
     .services,
     .process,
-    .insta-grid { display: grid; gap: 16px; }
+    .insta-grid,
+    .contact-grid,
+    .faq-grid { display: grid; gap: 16px; }
 
     .stats { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
     .services { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
     .process { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); margin-top: 12px; }
+    .contact-grid,
+    .faq-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
 
     .card,
     .stat,
@@ -238,6 +266,48 @@
     .cta p { color: var(--muted); }
     .cta a { margin-top: 20px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #072137; }
 
+    .contact-card,
+    .faq-item {
+      background: linear-gradient(180deg, var(--card-soft), var(--card));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .contact-card h3 {
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 20px;
+    }
+
+    .contact-card p,
+    .faq-item p,
+    .faq-item li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact-card a {
+      margin-top: 10px;
+      display: inline-block;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .faq-item h3 {
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .faq-item ul {
+      margin-left: 18px;
+      margin-top: 8px;
+      display: grid;
+      gap: 6px;
+    }
+
     footer { text-align: center; color: #98c4e3; font-size: 14px; padding: 26px 20px 80px; }
     footer img { width: 74px; margin-bottom: 10px; }
 
@@ -295,6 +365,13 @@
         <a href="#services" class="btn secondary" id="heroBtnSecondary">Hizmetleri Keşfet</a>
       </div>
 
+      <nav class="quick-links" aria-label="Bölüm kısayolları">
+        <a href="#services" id="quickServices">Hizmetler</a>
+        <a href="#process" id="quickProcess">Süreç</a>
+        <a href="#contact" id="quickContact">İletişim</a>
+        <a href="#faq" id="quickFaq">SSS</a>
+      </nav>
+
       <div class="badges">
         <div class="badge" id="badge1">⚓ Marina standartlarında profesyonel işçilik</div>
         <div class="badge" id="badge2">✅ Hızlı teslimat ve şeffaf süreç yönetimi</div>
@@ -322,7 +399,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="process">
     <h2 id="processTitle">Çalışma Sürecimiz</h2>
     <div class="process">
       <div class="step"><strong id="process1t">1) Keşif & Planlama</strong><p id="process1d">Teknenizin ihtiyaçlarını analiz eder, net bir iş planı çıkarırız.</p></div>
@@ -344,6 +421,49 @@
     <h2 id="instaTitle">Instagram'dan Son Paylaşımlar</h2>
     <div class="insta-status" id="instaStatus">Yükleniyor...</div>
     <div class="insta-grid" id="instaGrid"></div>
+  </section>
+
+  <section id="contact">
+    <h2 id="contactTitle">Hızlı İletişim</h2>
+    <div class="contact-grid">
+      <article class="contact-card">
+        <h3 id="contactCard1Title">Telefon / WhatsApp</h3>
+        <p id="contactCard1Text">Proje detaylarınızı hızlıca paylaşın, aynı gün dönüş sağlayalım.</p>
+        <a href="tel:+905388834648">+90 538 883 46 48</a>
+      </article>
+      <article class="contact-card">
+        <h3 id="contactCard2Title">E-posta</h3>
+        <p id="contactCard2Text">Detaylı bakım talebi, fotoğraf ve teknik bilgi göndermek için.</p>
+        <a href="mailto:info@fmmarina.com">info@fmmarina.com</a>
+      </article>
+      <article class="contact-card">
+        <h3 id="contactCard3Title">Çalışma Planı</h3>
+        <p id="contactCard3Text">Pazartesi - Cumartesi: 08:00 - 19:00 arası aktif operasyon.</p>
+        <a href="#" onclick="openWhatsApp()" id="contactCard3Link">Randevu Oluştur</a>
+      </article>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2 id="faqTitle">Sık Sorulan Sorular</h2>
+    <div class="faq-grid">
+      <article class="faq-item">
+        <h3 id="faq1Title">İş süresi nasıl belirleniyor?</h3>
+        <p id="faq1Text">Keşif sonrası ihtiyaçlara göre net iş takvimi paylaşılır. Her adım müşteriye raporlanır.</p>
+      </article>
+      <article class="faq-item">
+        <h3 id="faq2Title">Hangi hizmetleri paketleyebilirim?</h3>
+        <ul>
+          <li id="faq2Item1">Bakım + Boya</li>
+          <li id="faq2Item2">Zımpara + Cila</li>
+          <li id="faq2Item3">Komple sezonluk bakım</li>
+        </ul>
+      </article>
+      <article class="faq-item">
+        <h3 id="faq3Title">Garanti ve destek sunuyor musunuz?</h3>
+        <p id="faq3Text">Evet. Teslim sonrası kontroller ve bakım tavsiyeleri ile destek vermeye devam ediyoruz.</p>
+      </article>
+    </div>
   </section>
 
   <section class="cta">
@@ -375,7 +495,7 @@
       tr: {
         subtitle: 'Premium Tekne Bakım • Onarım • Boya • Cila',
         slogan: 'Tekneniz emin ellerde.',
-        heroBtnPrimary: 'WhatsApp’tan Yaz', heroBtnSecondary: 'Hizmetleri Keşfet',
+        heroBtnPrimary: 'WhatsApp’tan Yaz', heroBtnSecondary: 'Hizmetleri Keşfet', quickServices: 'Hizmetler', quickProcess: 'Süreç', quickContact: 'İletişim', quickFaq: 'SSS',
         badge1: '⚓ Marina standartlarında profesyonel işçilik', badge2: '✅ Hızlı teslimat ve şeffaf süreç yönetimi', badge3: '💬 Süreç boyunca aktif müşteri iletişimi',
         statsTitle: 'Neden FM Marina?', stat1: 'Yıllık sektör deneyimi', stat2: 'Tamamlanan tekne projesi', stat3: 'Hızlı iletişim desteği',
         servicesTitle: 'Hizmetlerimiz', service1: 'Tekne Bakım & Onarım', service2: 'Boya Uygulamaları', service3: 'Zımpara & Yüzey Hazırlığı', service4: 'Cila & Polish',
@@ -383,12 +503,12 @@
         processTitle: 'Çalışma Sürecimiz', process1t: '1) Keşif & Planlama', process1d: 'Teknenizin ihtiyaçlarını analiz eder, net bir iş planı çıkarırız.', process2t: '2) Uygulama', process2d: 'Profesyonel ekipman ve ürünlerle bakım-onarım sürecini yürütürüz.', process3t: '3) Kalite Kontrol', process3d: 'Teslim öncesi tüm işlemleri detaylı kalite kontrolünden geçiririz.', process4t: '4) Teslim & Destek', process4d: 'Teslim sonrası da ulaşılabilir olur, destek sunmaya devam ederiz.',
         beforeAfterTitle: 'Önce / Sonra', beforeLabel: 'Önce', afterLabel: 'Sonra',
         instaTitle: "Instagram'dan Son Paylaşımlar", instaLoading: 'Yükleniyor...', instaEmpty: 'Henüz paylaşım bulunamadı.', instaError: 'Instagram akışı şu anda alınamıyor.', instaView: 'Instagram’da Gör',
-        ctaTitle: 'Teklif Al', ctaText: 'WhatsApp üzerinden hızlıca iletişime geçin', ctaBtn: 'WhatsApp’tan Yaz', stickyText: 'FM Marina • Premium Tekne Servisi'
+        contactTitle: 'Hızlı İletişim', contactCard1Title: 'Telefon / WhatsApp', contactCard1Text: 'Proje detaylarınızı hızlıca paylaşın, aynı gün dönüş sağlayalım.', contactCard2Title: 'E-posta', contactCard2Text: 'Detaylı bakım talebi, fotoğraf ve teknik bilgi göndermek için.', contactCard3Title: 'Çalışma Planı', contactCard3Text: 'Pazartesi - Cumartesi: 08:00 - 19:00 arası aktif operasyon.', contactCard3Link: 'Randevu Oluştur', faqTitle: 'Sık Sorulan Sorular', faq1Title: 'İş süresi nasıl belirleniyor?', faq1Text: 'Keşif sonrası ihtiyaçlara göre net iş takvimi paylaşılır. Her adım müşteriye raporlanır.', faq2Title: 'Hangi hizmetleri paketleyebilirim?', faq2Item1: 'Bakım + Boya', faq2Item2: 'Zımpara + Cila', faq2Item3: 'Komple sezonluk bakım', faq3Title: 'Garanti ve destek sunuyor musunuz?', faq3Text: 'Evet. Teslim sonrası kontroller ve bakım tavsiyeleri ile destek vermeye devam ediyoruz.', ctaTitle: 'Teklif Al', ctaText: 'WhatsApp üzerinden hızlıca iletişime geçin', ctaBtn: 'WhatsApp’tan Yaz', stickyText: 'FM Marina • Premium Tekne Servisi'
       },
       en: {
         subtitle: 'Premium Boat Maintenance • Repair • Paint • Polish',
         slogan: 'Your boat is in safe hands.',
-        heroBtnPrimary: 'Message on WhatsApp', heroBtnSecondary: 'Explore Services',
+        heroBtnPrimary: 'Message on WhatsApp', heroBtnSecondary: 'Explore Services', quickServices: 'Services', quickProcess: 'Process', quickContact: 'Contact', quickFaq: 'FAQ',
         badge1: '⚓ Professional craftsmanship at marina standards', badge2: '✅ Fast delivery and transparent process', badge3: '💬 Active customer communication throughout the process',
         statsTitle: 'Why FM Marina?', stat1: 'Years of industry experience', stat2: 'Completed boat projects', stat3: 'Fast communication support',
         servicesTitle: 'Our Services', service1: 'Boat Maintenance & Repair', service2: 'Paint Applications', service3: 'Sanding & Surface Prep', service4: 'Polish & Detailing',
@@ -396,12 +516,12 @@
         processTitle: 'How We Work', process1t: '1) Inspection & Planning', process1d: 'We assess your boat and prepare a clear action plan.', process2t: '2) Application', process2d: 'We execute maintenance and repair with professional tools.', process3t: '3) Quality Control', process3d: 'Every step is checked carefully before delivery.', process4t: '4) Delivery & Support', process4d: 'We stay reachable and continue support after delivery.',
         beforeAfterTitle: 'Before / After', beforeLabel: 'Before', afterLabel: 'After',
         instaTitle: 'Latest Posts from Instagram', instaLoading: 'Loading posts...', instaEmpty: 'No posts found yet.', instaError: 'Instagram feed is currently unavailable.', instaView: 'View on Instagram',
-        ctaTitle: 'Get a Quote', ctaText: 'Reach out quickly via WhatsApp', ctaBtn: 'Write on WhatsApp', stickyText: 'FM Marina • Premium Boat Care'
+        contactTitle: 'Quick Contact', contactCard1Title: 'Phone / WhatsApp', contactCard1Text: 'Share your project details and get a same-day response.', contactCard2Title: 'E-mail', contactCard2Text: 'For detailed service requests, photos and technical notes.', contactCard3Title: 'Working Schedule', contactCard3Text: 'Monday - Saturday: 08:00 - 19:00 active operations.', contactCard3Link: 'Book an Appointment', faqTitle: 'Frequently Asked Questions', faq1Title: 'How is project duration planned?', faq1Text: 'After inspection, we share a clear timeline and report each step.', faq2Title: 'Which services can I combine?', faq2Item1: 'Maintenance + Paint', faq2Item2: 'Sanding + Polish', faq2Item3: 'Full seasonal care', faq3Title: 'Do you provide warranty and support?', faq3Text: 'Yes. We continue support with post-delivery checks and recommendations.', ctaTitle: 'Get a Quote', ctaText: 'Reach out quickly via WhatsApp', ctaBtn: 'Write on WhatsApp', stickyText: 'FM Marina • Premium Boat Care'
       },
       de: {
         subtitle: 'Premium Bootswartung • Reparatur • Lackierung • Politur',
         slogan: 'Ihr Boot ist in sicheren Händen.',
-        heroBtnPrimary: 'Per WhatsApp schreiben', heroBtnSecondary: 'Leistungen entdecken',
+        heroBtnPrimary: 'Per WhatsApp schreiben', heroBtnSecondary: 'Leistungen entdecken', quickServices: 'Leistungen', quickProcess: 'Ablauf', quickContact: 'Kontakt', quickFaq: 'FAQ',
         badge1: '⚓ Professionelle Arbeit nach Marina-Standard', badge2: '✅ Schnelle Lieferung und transparenter Prozess', badge3: '💬 Aktive Kundenkommunikation während des gesamten Prozesses',
         statsTitle: 'Warum FM Marina?', stat1: 'Jahre Branchenerfahrung', stat2: 'Abgeschlossene Bootsprojekte', stat3: 'Schneller Kommunikationssupport',
         servicesTitle: 'Unsere Leistungen', service1: 'Bootswartung & Reparatur', service2: 'Lackierarbeiten', service3: 'Schleifen & Oberflächenvorbereitung', service4: 'Politur & Detailing',
@@ -409,12 +529,12 @@
         processTitle: 'Unser Ablauf', process1t: '1) Analyse & Planung', process1d: 'Wir analysieren Ihr Boot und erstellen einen klaren Plan.', process2t: '2) Umsetzung', process2d: 'Wir führen Wartung und Reparatur professionell durch.', process3t: '3) Qualitätskontrolle', process3d: 'Alle Schritte werden vor Übergabe sorgfältig geprüft.', process4t: '4) Übergabe & Support', process4d: 'Auch nach der Übergabe bleiben wir erreichbar.',
         beforeAfterTitle: 'Vorher / Nachher', beforeLabel: 'Vorher', afterLabel: 'Nachher',
         instaTitle: 'Neueste Instagram-Beiträge', instaLoading: 'Beiträge werden geladen...', instaEmpty: 'Noch keine Beiträge gefunden.', instaError: 'Instagram-Feed ist derzeit nicht verfügbar.', instaView: 'Auf Instagram ansehen',
-        ctaTitle: 'Angebot anfordern', ctaText: 'Kontaktieren Sie uns schnell über WhatsApp', ctaBtn: 'Über WhatsApp schreiben', stickyText: 'FM Marina • Premium Boot Service'
+        contactTitle: 'Schneller Kontakt', contactCard1Title: 'Telefon / WhatsApp', contactCard1Text: 'Teilen Sie Ihre Projektdetails und erhalten Sie noch am selben Tag eine Rückmeldung.', contactCard2Title: 'E-Mail', contactCard2Text: 'Für detaillierte Anfragen, Fotos und technische Informationen.', contactCard3Title: 'Arbeitszeiten', contactCard3Text: 'Montag - Samstag: 08:00 - 19:00 aktiver Betrieb.', contactCard3Link: 'Termin anfragen', faqTitle: 'Häufig gestellte Fragen', faq1Title: 'Wie wird die Dauer geplant?', faq1Text: 'Nach der Inspektion teilen wir einen klaren Zeitplan und berichten jeden Schritt.', faq2Title: 'Welche Leistungen kann ich kombinieren?', faq2Item1: 'Wartung + Lackierung', faq2Item2: 'Schleifen + Politur', faq2Item3: 'Komplette Saisonpflege', faq3Title: 'Bieten Sie Garantie und Support?', faq3Text: 'Ja. Wir unterstützen auch nach der Übergabe weiter.', ctaTitle: 'Angebot anfordern', ctaText: 'Kontaktieren Sie uns schnell über WhatsApp', ctaBtn: 'Über WhatsApp schreiben', stickyText: 'FM Marina • Premium Boot Service'
       },
       ru: {
         subtitle: 'Премиум обслуживание • Ремонт • Покраска • Полировка',
         slogan: 'Ваша лодка в надежных руках.',
-        heroBtnPrimary: 'Написать в WhatsApp', heroBtnSecondary: 'Посмотреть услуги',
+        heroBtnPrimary: 'Написать в WhatsApp', heroBtnSecondary: 'Посмотреть услуги', quickServices: 'Услуги', quickProcess: 'Процесс', quickContact: 'Контакты', quickFaq: 'FAQ',
         badge1: '⚓ Профессиональная работа по стандартам марины', badge2: '✅ Быстрые сроки и прозрачный процесс', badge3: '💬 Активная коммуникация с клиентом на каждом этапе',
         statsTitle: 'Почему FM Marina?', stat1: 'Лет опыта в отрасли', stat2: 'Завершенных проектов', stat3: 'Быстрая поддержка',
         servicesTitle: 'Наши услуги', service1: 'Обслуживание и ремонт лодок', service2: 'Покрасочные работы', service3: 'Шлифовка и подготовка поверхности', service4: 'Полировка и детейлинг',
@@ -422,7 +542,7 @@
         processTitle: 'Как мы работаем', process1t: '1) Осмотр и план', process1d: 'Анализируем состояние лодки и формируем четкий план.', process2t: '2) Выполнение работ', process2d: 'Проводим обслуживание и ремонт профессионально.', process3t: '3) Контроль качества', process3d: 'Проверяем все этапы перед передачей.', process4t: '4) Передача и поддержка', process4d: 'Остаемся на связи и после завершения работ.',
         beforeAfterTitle: 'До / После', beforeLabel: 'До', afterLabel: 'После',
         instaTitle: 'Последние публикации Instagram', instaLoading: 'Загружаем публикации...', instaEmpty: 'Публикации пока не найдены.', instaError: 'Лента Instagram сейчас недоступна.', instaView: 'Открыть в Instagram',
-        ctaTitle: 'Получить предложение', ctaText: 'Свяжитесь с нами через WhatsApp', ctaBtn: 'Написать в WhatsApp', stickyText: 'FM Marina • Премиум сервис лодок'
+        contactTitle: 'Быстрый контакт', contactCard1Title: 'Телефон / WhatsApp', contactCard1Text: 'Отправьте детали проекта и получите ответ в тот же день.', contactCard2Title: 'E-mail', contactCard2Text: 'Для подробных запросов, фото и технической информации.', contactCard3Title: 'График работы', contactCard3Text: 'Понедельник - Суббота: 08:00 - 19:00.', contactCard3Link: 'Записаться', faqTitle: 'Частые вопросы', faq1Title: 'Как определяется срок работ?', faq1Text: 'После осмотра мы даем понятный график и отчитываемся по этапам.', faq2Title: 'Какие услуги можно объединить?', faq2Item1: 'Обслуживание + покраска', faq2Item2: 'Шлифовка + полировка', faq2Item3: 'Полный сезонный уход', faq3Title: 'Есть ли гарантия и поддержка?', faq3Text: 'Да. Мы остаемся на связи и после сдачи работ.', ctaTitle: 'Получить предложение', ctaText: 'Свяжитесь с нами через WhatsApp', ctaBtn: 'Написать в WhatsApp', stickyText: 'FM Marina • Премиум сервис лодок'
       }
     };
 
